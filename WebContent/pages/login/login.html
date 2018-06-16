@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>AhaMall Management system</title>
+<link type="text/css" rel="stylesheet" href="login.css">
+<script src="../jquerylib/jquery-3.3.1.min.js"></script>
+<script src="login.js"></script>
+</head>
+<body onload="load()">
+	<div id="login_form">
+	<form method="post" action="../../CheckAdminServlet">
+		<p id="web_name">AhaMall Management System</p>
+		<div id="login_from_content">
+		<ul>
+			<li>
+				<input type="text" placeholder="amdin" id="admin" name="admin"><br>
+				<span class="error_tip hide" id="admin_error_tip">admin is not exist!</span>
+			</li>
+		</ul>
+		<ul>
+			<li>
+				<input type="password" placeholder="password" name="password" id="password">
+				<br>
+				<span class="error_tip hide" id="error_tip">password is not match！</span>
+			</li>
+		</ul>
+		<ul>
+			<li>
+				<button type="submit">login</button>
+			</li>
+		</ul>
+		</div>
+	</form>	
+	<div class="hide" id="tempVar"></div>
+</div>
+</body>
+</html>
