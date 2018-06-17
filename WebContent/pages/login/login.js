@@ -5,7 +5,7 @@ function GetUrlParameter(name)
 	"use strict";
 	var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
 	var r = window.location.search.substr(1).match(reg);
-	if(r!=null)
+	if(r!==null)
 	 {
 		return  decodeURIComponent(r[2]);	 
 	 }
@@ -18,7 +18,7 @@ function GetUrlParameter(name)
 function load() {
 	"use strict";
 	var t = GetUrlParameter("isNotMatch");
-	if (t == "true") {
+	if (t === "true") {
 		$("#error_tip").removeClass("hide");
 	}
 }
@@ -34,7 +34,7 @@ $(document).ready(
 				var admin = $("#admin").val();
 				var pwd = $("#password").val();
 				//alert(admin+"\t"+pwd);
-				if(admin == "" || pwd == "")
+				if(admin === "" || pwd === "")
 					{
 						//alert(admin+"\t"+pwd);
 						$("#error_tip").removeClass("hide");
@@ -60,13 +60,13 @@ $(document).ready(
 				//alert("hello");
 				$("#admin_error_tip").addClass("hide");
 				var admin = $("#admin").val();
-				if(admin != null)
+				if(admin !== null)
 					{
 						var url = "../../CheckAdminServlet?admin="+admin;
 						//alert(url);
 						ajaxGetResponeText("get",url,false);
 						var text = $("#tempVar").text();
-						if(text == "false")
+						if(text === "false")
 							{
 								$("#admin_error_tip").removeClass("hide");
 							}else {
@@ -85,7 +85,7 @@ function ajaxGetResponeText(method,url,sysc)
 	xmlhttp=new XMLHttpRequest();
 	xmlhttp.onreadystatechange=function()
 	  {
-		  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		  if (xmlhttp.readyState===4 && xmlhttp.status===200)
 			{
 			  //alert(xmlhttp.responseText);
 			  //fun.call(this,xmlhttp.responseText);

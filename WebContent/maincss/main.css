@@ -8,24 +8,13 @@ body{
 	margin: 0px;
 	padding: 0px;
 }
-div,p,ul{
-	border: 1px solid DarkOrchid;
+div,p,ul,table,th,td{
+/*	border: 1px solid DarkOrchid;*/
 }
 
 ul{
 	list-style:none;
 }
-
-/*
-p{
-	color: white;
-	margin: 0;
-	width: 200px;
-	height: inherit;
-	text-align: center;
-	vertical-align: baseline;
-}
-*/
 
 input{
 	width: 160px;
@@ -39,4 +28,7 @@ input{
 .hide
 {
 	display: none;
+}
+.invalid{
+	opacity: 0.5;
 }

@@ -3,6 +3,7 @@
 	height: 100%;
 }
 .left_menu{
+	float: left;
 	width: 200px;
 	height: 90%;
 	background-color: Silver ;
@@ -19,12 +20,14 @@
 .top_menu
 {
 	height: 10%;
+	border-bottom: 2px solid Silver;
 /*	background-color: black;*/
 }
 .title{
 	width: 200px;
 	height: 100%;
 	float: left;
+	background-color: Silver;
 	vertical-align:bottom;
 }
 
@@ -57,4 +60,10 @@
 }
 .info p:hover,.show_menu p:hover{
 	cursor: pointer;
+}
+.main_panel{
+	overflow:hidden;
+	height: 90%;
+	text-align: center;
+/*	border: solid 1px;*/
 }

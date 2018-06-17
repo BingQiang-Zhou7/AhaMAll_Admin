@@ -3,11 +3,13 @@
 {
 	width: 300px;
 	margin: 10% auto 0 auto;
+	background-color: silver;
 }
 #login_from_content
 {
 	width: 240px;
 	margin: 0 auto 10% auto;
+/*	background-color: Silver;*/
 }
 #web_name
 {

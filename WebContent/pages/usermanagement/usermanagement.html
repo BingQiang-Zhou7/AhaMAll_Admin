@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>AhaMall - User Management</title>
+	<link type="text/css" rel="stylesheet" href="../../maincss/main.css">
+	<link type="text/css" rel="stylesheet" href="usemanagement.css">
+	<script src="../../jquerylib/jquery-3.3.1.min.js"></script>
+	<script src="usermanagement.js"></script>
+</head>
+<body>
+	<div class="main_panel">
+		<div class="user_manager">
+			<div class="table_header">
+				<div class="table_info">
+				<p><strong>User Information</strong></p>
+				</div>
+				<div class="table_opearter">
+				<p class="left" id="adduser">add user</p>
+				<p>delete user</p>
+				</div>
+			</div>
+			<div class="table_style">
+				<table>
+					<tr>
+						<th></th>
+						<th>name</th>
+						<th>ID</th>
+						<th>phone number</th>
+					</tr>
+					<tr>
+						<td><input class="table_chechbox" type="checkbox"></td>
+						<td><input class="table_input" type="text" value="XiaoQiang" maxlength="16"></td>
+						<td><input class="table_input" type="text" readonly value="111111111111111111" maxlength="16"></td>
+						<td><input class="table_input" type="text" readonly value="22222222222" maxlength="11"></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="cover hide">
+		<div class="input_message_box">
+			<div class="close"><img id="close" src="../../images/close.png"></div>
+			<form>
+				<ul>
+					<li>user name</li>
+					<li><input></li>
+				</ul>
+				<ul>
+					<li>user id</li>
+					<li><input></li>
+				</ul>
+				<ul>
+					<li>user phone number</li>
+					<li><input></li>
+				</ul>
+				<ul>
+					<li>
+						<button type="submit">add user</button>
+					</li>
+				</ul>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
