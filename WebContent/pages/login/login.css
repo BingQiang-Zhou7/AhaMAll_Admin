@@ -3,13 +3,11 @@
 {
 	width: 300px;
 	margin: 10% auto 0 auto;
-	border: 1px solid red;
 }
 #login_from_content
 {
 	width: 240px;
 	margin: 0 auto 10% auto;
-	border: 1px solid red;
 }
 #web_name
 {
@@ -18,23 +16,4 @@
 	font-size: 20px;
 }
 
-ul
-{
-	list-style:none;
-}
-
-input
-{
-	width: 160px;
-}
-
-.error_tip
-{
-	color: red;
-}
-
-.hide
-{
-	display: none;
-}
 

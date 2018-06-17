@@ -1,0 +1,42 @@
+html{
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+body{
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+div,p,ul{
+	border: 1px solid DarkOrchid;
+}
+
+ul{
+	list-style:none;
+}
+
+/*
+p{
+	color: white;
+	margin: 0;
+	width: 200px;
+	height: inherit;
+	text-align: center;
+	vertical-align: baseline;
+}
+*/
+
+input{
+	width: 160px;
+}
+
+.error_tip
+{
+	color: red;
+}
+
+.hide
+{
+	display: none;
+}

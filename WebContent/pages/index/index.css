@@ -1,0 +1,60 @@
+/* CSS Document */
+.content{
+	height: 100%;
+}
+.left_menu{
+	width: 200px;
+	height: 90%;
+	background-color: Silver ;
+}
+.left_menu ul a.select{
+	font-weight:bold;
+	color: black;
+}
+.left_menu ul a{
+	text-decoration: none;
+	color: white;
+}
+
+.top_menu
+{
+	height: 10%;
+/*	background-color: black;*/
+}
+.title{
+	width: 200px;
+	height: 100%;
+	float: left;
+	vertical-align:bottom;
+}
+
+.title p{
+	font-size: 2vw;
+	text-align: center;
+}
+.show_menu{
+	height: 100%;
+	float: left;
+	vertical-align:bottom;
+}
+.show_menu p{
+	font-size: 1.5vw;
+	text-align: center;
+	text-decoration: underline;
+	color: gray;
+}
+.info{
+	float: right;
+	height: 100%;
+	margin-right: 200px;
+}
+.info p{
+	float: left;
+	padding-left: 20px;
+	font-size: 1.5vw;
+	text-align: center;
+	color: gray;
+}
+.info p:hover,.show_menu p:hover{
+	cursor: pointer;
+}
