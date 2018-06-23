@@ -1,6 +1,7 @@
 package zhou.servlet;
 
 import java.io.IOException;
+//import java.io.PrintWriter;
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
@@ -12,16 +13,16 @@ import javax.servlet.http.HttpServletResponse;
 import zhou.db.DataProcess;
 
 /**
- * Servlet implementation class CheckAdminServlet
+ * Servlet implementation class CheckInfo
  */
-@WebServlet("/CheckAdminServlet")
-public class CheckAdminServlet extends HttpServlet {
+@WebServlet("/CheckInfo")
+public class CheckInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CheckAdminServlet() {
+    public CheckInfo() {
         super();
     }
 
@@ -34,27 +35,17 @@ public class CheckAdminServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		
-		String admin = request.getParameter("admin");
-		String password = request.getParameter("password");
-		
-		//System.out.println(admin+"\t"+password);
-		
-		boolean result = new DataProcess("backstage").CheckUser(admin, password,"1");
-		
-		if (password != null && result == true) {
-			request.getSession().setAttribute("admin", admin);//storage user login id
-			System.out.println("go Here:pages/index/index.html result: "+result);
-			response.sendRedirect("pages/index/index.jsp");
+		boolean isExist = false;
+		switch (request.getParameter("type").charAt(0)) {
+		case 'u':
+			//System.out.println("hello");
+			isExist = CheckUserIsExist(request);
+			break;
+		default:
+			break;
 		}
-		else if(password != null && result == false){
-			System.out.println("go Here:pages/login/login.html?isNotMatch=true result: "+result);
-			response.sendRedirect("pages/login/login.html?isNotMatch=true");
-		}
-		else {
-			out.print(result);
-			out.flush();
-			System.out.println("go Here:CheckAdminServlet result: "+result);
-		}
+		out.print(isExist);
+		
 	}
 
 	/**
@@ -63,5 +54,12 @@ public class CheckAdminServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
-
+	
+	boolean CheckUserIsExist(HttpServletRequest request)
+	{
+		String user = request.getParameter("user");
+		//System.out.println("111");
+		boolean result = new DataProcess("backstage").CheckUser(user, "null","0");
+		return result;
+	}
 }

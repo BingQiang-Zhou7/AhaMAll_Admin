@@ -6,9 +6,6 @@ table,th,td{
 table{
 	width: inherit;
 }
-.main_panel{
-	
-}
 .table_input{
 	width:98%;
 	text-align: center;
@@ -21,6 +18,7 @@ table{
 }
 .user_manager{
 	margin: 2% auto;
+	width:inherit;
 	width: 800px;
 }
 .table_header{
@@ -64,9 +62,9 @@ table{
 	margin: 10% auto;
 	padding-bottom: 20px;
 /*	background-color: white;*/
-	width: 270px;
 	background-color: aliceblue;
 	border: solid medium dodgerblue;
+	width:280px;
 }
 .close{
 	width: 100%;
@@ -75,4 +73,24 @@ table{
 .close img{
 	border: solid 1px dodgerblue;
 	padding: 4px;
+}
+
+.table_style tr td input
+{
+	border:0px;
+	background-color:transparent;
+}
+.search
+{
+	height:50px;
+	/*border:1px solid;*/
+}
+
+.search input
+{
+	width:220px;
+}
+.pagenumber table, .pagenumber tbody, .pagenumber tr, .pagenumber td
+{
+	border:0;
 }

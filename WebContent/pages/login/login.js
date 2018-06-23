@@ -75,24 +75,3 @@ $(document).ready(
 					}
 			});
 	});
-
-
-function ajaxGetResponeText(method,url,sysc)
-{
-	"use strict";
-	var xmlhttp;
-	//var text;
-	xmlhttp=new XMLHttpRequest();
-	xmlhttp.onreadystatechange=function()
-	  {
-		  if (xmlhttp.readyState===4 && xmlhttp.status===200)
-			{
-			  //alert(xmlhttp.responseText);
-			  //fun.call(this,xmlhttp.responseText);
-			  $("#tempVar").text(xmlhttp.responseText);
-			  //return xmlhttp.responseText; 
-			}
-	  };
-	xmlhttp.open(method,url,sysc);
-	xmlhttp.send();
-}

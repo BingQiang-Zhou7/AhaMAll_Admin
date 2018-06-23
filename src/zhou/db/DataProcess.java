@@ -2,7 +2,9 @@ package zhou.db;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import zhou.dao.User;
 import zhou.db.DataAccess;
 
 public class DataProcess {
@@ -16,19 +18,19 @@ public class DataProcess {
 		dataAccess.colseConnect();
 	}
 	//登录验证
-	public boolean CheckAdmin(String adminName,String password) {
+	public boolean CheckUser(String adminName,String password,String sign) {
 		if (password == null) {
 			password = "null";
 		}
-		Object[] parameter = new Object[] {adminName,password};
+		Object[] parameter = new Object[] {adminName,password,sign};
 
-		ResultSet resultSet = dataAccess.DatabaseOperations("call AdminCheck(?,?)", parameter);
+		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_CheckUser(?,?,?)", parameter);
 		try {
 			//没有输入密码时验证管理员是否存在
 			if (password == "null") {
 				while (resultSet.next()) {
 					if (resultSet.getString(1).equals("1")) {
-						return true;
+						return true;//存在
 					}
 					return false;
 				}
@@ -50,5 +52,73 @@ public class DataProcess {
 			return false;
 		}
 		return false;
+	}
+	
+	//修改密码
+	public boolean ChangePassword(String adminName,String password) {
+		Object[] parameter = new Object[] {adminName,password};
+
+		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_ChangePassword(?,?)", parameter);
+		if (resultSet == null) {
+			return true;
+		}
+		return false;
+	} 
+	
+	
+	public boolean DeleteUserInfo(String adminAccount) {
+		Object[] parameter = new Object[] {adminAccount};
+
+		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_DeleteUserInfo(?)", parameter);
+		if (resultSet == null) {
+			return true;
+		}
+		return false;
+	} 
+	
+	public ArrayList<User> SearchAllUser(String pageNo) {
+		
+		Object[] parameter = new Object[] {pageNo};
+		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_SearchAllUser(?)", parameter);
+		ArrayList<User> users = new ArrayList<User>();
+			try {
+				while (resultSet.next()) {
+					users.add(new User(resultSet.getString("UserAccount"), resultSet.getString("UserName"),
+							resultSet.getString("UserPassword"), resultSet.getString("UserDescription"),
+							resultSet.getString("UserFlag"), resultSet.getString("UserSign")));
+					//System.out.println("heloo");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+			//System.out.println(dataAccess.getErrorStr());
+			return users;
+	}
+	
+	public ArrayList<User> SearchUserFuzzy(String fuzzyStr, String pageNo) {
+		
+		Object[] parameter = new Object[] {fuzzyStr,pageNo};
+		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_SearchUserFuzzy(?,?)", parameter);
+		ArrayList<User> users = new ArrayList<User>();
+			try {
+				while (resultSet.next()) {
+					users.add(new User(resultSet.getString("UserAccount"), resultSet.getString("UserName"),
+							resultSet.getString("UserPassword"), resultSet.getString("UserDescription"),
+							resultSet.getString("UserFlag"), resultSet.getString("UserSign")));
+					//System.out.println("heloo");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+			//System.out.println(dataAccess.getErrorStr());
+			return users;
+	}
+	
+	public void EditUser(String UserAccount,String UserName,String UserPassword,String UserDescription) {
+		Object[] parameter = new Object[] {UserAccount,UserName,UserPassword,UserDescription};
+
+		dataAccess.DatabaseOperations("call Proc_EditUserInfo(?,?,?,?)", parameter);
 	}
 }

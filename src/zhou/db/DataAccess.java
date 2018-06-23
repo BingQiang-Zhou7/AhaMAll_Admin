@@ -44,13 +44,16 @@ public class DataAccess {
 				for (int i = 0; i < parameter.length; i++) {
 					pStatement.setString(i+1, (String)parameter[i]);
 				}
+				//System.out.println("1111"+parameter[0]);
 			}
 			boolean result = pStatement.execute();//执行SQL语句
 			//System.out.println("execute");
 			if (result == true) {
+				//System.out.println("getResultSet");
 				return pStatement.getResultSet();//返回结果集
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			ErrorStr = e.getMessage();
 		}
 		return null;
