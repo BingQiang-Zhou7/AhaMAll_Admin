@@ -17,8 +17,10 @@ class DataProcessTest {
 		
 		//SearchAllUser("0");
 		//SearchUserFuzzy("a","0");
-		EditUser("4","44","444","4444");
-		EditUser("3","333","333","333");
+//		EditUser("4","44","444","4444");
+//		EditUser("3","333","333","333");
+		
+		new DataProcess("backstage").EditWarehouseInfo("5", "555", "555", "555");
 	}
 	
 	void CheckAdmin()

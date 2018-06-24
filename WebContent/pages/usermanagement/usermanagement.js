@@ -96,6 +96,7 @@ $(document).ready(
 						$("#isNull").removeClass("hide");
 						return false;
 					}
+				$("#newAccount").removeAttr("disabled");
 				//alert("null");
 			}
 		);

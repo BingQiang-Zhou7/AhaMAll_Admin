@@ -4,12 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=GB18030">
-<title>User Management</title>
+<title>Warehouse Management</title>
 <link type="text/css" rel="stylesheet" href="../../maincss/main.css">
 <link type="text/css" rel="stylesheet" href="../../mainjsp/main.css">
 <script src="../../jquerylib/jquery-3.3.1.min.js"></script>
 <script src="../../mainjsp/main.js"></script>
-<script src="productmanagement.js"></script>
+<script src="warehousemanagement.js"></script>
 </head>
 <body>
 <%@include file="../../mainjsp/main.jsp" %>
@@ -21,38 +21,40 @@
 					<button id="search">search</button>
 				</div>
 				<div class="table_info">
-				<p><strong>User Information</strong></p>
+				<p><strong>Warehouse Information</strong></p>
 				</div>
 				<div class="table_opearter">
-				<p class="left" id="adduser">add user</p>
+				<p class="left" id="add">add warehouse</p>
 				<p id="refresh">refresh</p>
 				</div>
 			</div>
 			<div class="table_style">
 				<table>
 					<tr>
-						<th>account</th>
+						<th>number</th>
 						<th>name</th>
-						<th>password</th>
-						<th>description</th>
+						<th>administrator</th>
+						<th>telephone</th>
+						<th>storage</th>
 						<th>operate</th>
 					</tr>
-					<c:if test="${not empty sessionScope.users}">
-					<c:forEach items="${sessionScope.users}" var="user">
+					<c:if test="${not empty sessionScope.warehouses}">
+					<c:forEach items="${sessionScope.warehouses}" var="warehouse">
 					<tr>
-						<td><input class="table_input" type="text" readonly value="${user.getUserAccount()}" maxlength="16"></td>
-						<td><input class="table_input" type="text" readonly value="${user.getUserName()}" maxlength="16"></td>
-						<td><input class="table_input" type="text" readonly value="${user.getUserPassword()}" maxlength="16"></td>
-						<td><textarea rows="1" cols="21" maxlength="128" readonly style="height: 20px;">${user.getUserDescription()}</textarea></td>
+						<td><input class="table_input" type="text" readonly value="${warehouse.getWarehouseNo()}" ></td>
+						<td><input class="table_input" type="text" readonly value="${warehouse.getWarehouseName()}" ></td>
+						<td><input class="table_input" type="text" readonly value="${warehouse.getWarehouseContact()}" ></td>
+						<td><input class="table_input" type="text" readonly value="${warehouse.getWarehouseContactTele()}" ></td>
+						<td><input class="table_input" type="text" readonly value="${warehouse.getWarehouseStorageCapacity()}" ></td>
 						<td>
-						<a href="javascript:void(0);" class="edit">edit user</a>
-						<a href="../../ProductManagement?account=${user.getUserAccount()}">delete user</a>
+						<a href="javascript:void(0);" class="edit">edit</a>
+						<a href="../../WarehouseManagement?warehouseNo=${warehouse.getWarehouseNo()}">delete</a>
 						</td>
 					</tr>
 					</c:forEach>
 					</c:if>
 				</table>
-				<c:if test="${empty sessionScope.users}">
+				<c:if test="${empty sessionScope.warehouses}">
 							<p>No information found!</p>
 					</c:if>
 			</div>
@@ -76,28 +78,28 @@
 	<div class="cover hide">
 		<div class="input_message_box">
 			<div class="close"><img id="close" src="../../images/close.png"></div>
-			<form method="post" action="../../ProductManagement">
+			<form method="get" action="../../WarehouseManagement">
 				<ul>
 					<li>
-						<b style="font-size: 28px;">user info</b>
+						<b style="font-size: 28px;">warehouse info</b>
 					</li>
 				</ul>
 				<ul>
-					<li>user account</li>
-					<li><input maxlength="16" id="newAccount" name="userAccount"></li>
-					<li style="color: red;" class="hide" id="AccountTip">account is exist!</li>
+					<li>warehouse number</li>
+					<li><input maxlength="16" name="newNumber" id="newNumber"></li>
+					<li style="color: red;" class="hide" id="AccountTip">number is exist!</li>
 				</ul>
 				<ul>
-					<li>user name</li>
-					<li><input maxlength="16" name="userName" id="newName"></li>
+					<li>warehouse name</li>
+					<li><input maxlength="16" name="newName" id="newName"></li>
 				</ul>
 				<ul>
-					<li>user password</li>
-					<li><input maxlength="16" name="userPassword" id="newPassword"></li>
+					<li>warehouse administrator</li>
+					<li><input maxlength="16" name="newAdministrator" id="newAdministrator"></li>
 				</ul>
 				<ul>
-					<li>user description</li>
-					<li><textarea rows="5" cols="21" maxlength="128" name="userDescription" id="newDescription"></textarea></li>
+					<li>warehouse telephone</li>
+					<li><input maxlength="16" name="newTelephone" id="newTelephone"></li>
 				</ul>
 				<ul>
 					<li id = "isNull" style="color: red;" class="hide">Information can't be empty!</li>

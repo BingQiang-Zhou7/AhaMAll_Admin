@@ -37,7 +37,7 @@ public class ProductManagement extends HttpServlet {
 		System.out.println("------------------------------------------------------");
 		System.out.println("In Here: ProductManagementServlet");
 		
-		EditUserInfo(request);
+		EditProductInfo(request);
 		
 		DeleteProductInfo(request);
 		
@@ -55,7 +55,7 @@ public class ProductManagement extends HttpServlet {
 		doGet(request, response);
 	}
 
-	void EditUserInfo(HttpServletRequest request)
+	void EditProductInfo(HttpServletRequest request)
 	{
 		String clothingCode = request.getParameter("newCode");
 		String clothingColor = request.getParameter("newColor");

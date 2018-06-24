@@ -101,6 +101,7 @@ $(document).ready(
 						$("#isNull").removeClass("hide");
 						return false;
 					}
+				$("#newCode").removeAttr("disabled");
 				//alert("null");
 			}
 		);

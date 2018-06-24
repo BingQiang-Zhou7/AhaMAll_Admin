@@ -42,6 +42,8 @@ public class CheckInfo extends HttpServlet {
 			break;
 		case 'p':
 			isExist = CheckProductIsExist(request);
+		case 'w':
+			isExist = CheckWarehouseIsExist(request);
 		default:
 			break;
 		}
@@ -68,6 +70,13 @@ public class CheckInfo extends HttpServlet {
 		String clothingCode = request.getParameter("product");
 		//System.out.println("111");
 		boolean result = new DataProcess("backstage").CheckProduct(clothingCode);
+		return result;
+	}
+	boolean CheckWarehouseIsExist(HttpServletRequest request)
+	{
+		String warehouseNo = request.getParameter("warehouse");
+		//System.out.println("111");
+		boolean result = new DataProcess("backstage").CheckWarehouse(warehouseNo);
 		return result;
 	}
 }

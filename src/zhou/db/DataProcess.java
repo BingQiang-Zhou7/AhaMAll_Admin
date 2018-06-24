@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import zhou.dao.Product;
 import zhou.dao.User;
+import zhou.dao.Warehouse;
 import zhou.db.DataAccess;
 
 public class DataProcess {
@@ -202,5 +203,83 @@ public class DataProcess {
 		Object[] parameter = new Object[] {clothingCode,clothingColor,clothingSize,clothingName,clothingPrice};
 
 		dataAccess.DatabaseOperations("call Proc_EditProductInfo(?,?,?,?,?)", parameter);
+	}
+	
+	
+	public boolean CheckWarehouse(String warehouseNo) {
+		Object[] parameter = new Object[] {warehouseNo};
+
+		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_CheckWarehouse(?)", parameter);
+		try {
+				while (resultSet.next()) {
+					if (resultSet.getString(1).equals("1")) {
+						return true;//´æÔÚ
+					}
+					return false;
+				}
+			resultSet.close();
+			closeConnect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return false;
+	}
+	
+	
+	
+	public boolean DeleteWarehouseInfo(String warehouseNo) {
+		Object[] parameter = new Object[] {warehouseNo};
+
+		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_DeleteWarehouseInfo(?)", parameter);
+		if (resultSet == null) {
+			return true;
+		}
+		return false;
+	} 
+	
+	public ArrayList<Warehouse> SearchAllWarehouse(String pageNo) {
+		
+		Object[] parameter = new Object[] {pageNo};
+		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_SearchAllWarehouse(?)", parameter);
+		ArrayList<Warehouse> warehouses = new ArrayList<Warehouse>();
+			try {
+				while (resultSet.next()) {
+					warehouses.add(new Warehouse(resultSet.getString("WarehouseNo"), resultSet.getString("WarehouseName"),
+							resultSet.getString("WarehouseContact"),resultSet.getString("WarehouseContactTele"),
+							resultSet.getString("WarehouseStorageCapacity"),resultSet.getString("WarehouseFlag")));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+			//System.out.println(dataAccess.getErrorStr());
+			return warehouses;
+	}
+	
+	public ArrayList<Warehouse> SearchWarehouseFuzzy(String fuzzyStr, String pageNo) {
+		
+		Object[] parameter = new Object[] {fuzzyStr,pageNo};
+		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_SearchWarehouseFuzzy(?,?)", parameter);
+		ArrayList<Warehouse> warehouses = new ArrayList<Warehouse>();
+		try {
+			while (resultSet.next()) {
+				warehouses.add(new Warehouse(resultSet.getString("WarehouseNo"), resultSet.getString("WarehouseName"),
+						resultSet.getString("WarehouseContact"),resultSet.getString("WarehouseContactTele"),
+						resultSet.getString("WarehouseStorageCapacity"),resultSet.getString("WarehouseFlag")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		//System.out.println(dataAccess.getErrorStr());
+		return warehouses;
+	}
+	
+	public void EditWarehouseInfo(String warehouseNo,String warehouseName,
+			String warehouseContact,String warehouseContactTele) {
+		Object[] parameter = new Object[] {warehouseNo,warehouseName,warehouseContact,warehouseContactTele};
+
+		dataAccess.DatabaseOperations("call Proc_EditWarehouseInfo(?,?,?,?)", parameter);
 	}
 }

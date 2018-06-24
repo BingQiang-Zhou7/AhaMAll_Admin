@@ -4,15 +4,15 @@ $(document).ready(
 	function()
 	{
 		"use strict";
-		$("#adduser").click(
+		$("#add").click(
 			function()
 			{
 				$(".cover").removeClass("hide");
-				$("#newAccount").removeAttr("disabled");
-				$("#newAccount").val("");
-				$("#newDescription").val("");
-				$("#newPassword").val("");
+				$("#newNumber").removeAttr("disabled");
+				$("#newNumber").val("");
 				$("#newName").val("");
+				$("#newAdministrator").val("");
+				$("#newTelephone").val("");
 			}
 		);
 		$(".edit").click(
@@ -20,18 +20,18 @@ $(document).ready(
 				{
 					$(".cover").removeClass("hide");
 					//alert("123");
-					var description = $(this).parent().prev().children();
+					var telephone = $(this).parent().prev().prev().children();
 					//alert(description.val());
-					$("#newDescription").val(description.val());
-					var password = description.parent().prev().children();
+					$("#newTelephone").val(telephone.val());
+					var administrator = telephone.parent().prev().children();
 					//alert(password.val());
-					$("#newPassword").val(password.val());
-					var name = password.parent().prev().children();
+					$("#newAdministrator").val(administrator.val());
+					var name = administrator.parent().prev().children();
 					//alert(name.val());
 					$("#newName").val(name.val());
-					var account = name.parent().prev().children();
-					$("#newAccount").val(account.val());
-					$("#newAccount").attr("disabled","true");
+					var number = name.parent().prev().children();
+					$("#newNumber").val(number.val());
+					$("#newNumber").attr("disabled","true");
 				}
 			);
 		$("#close").click(
@@ -50,24 +50,24 @@ $(document).ready(
 //							alert(window.location.href);
 //							
 //						}
-					window.location.href = "../../ProductManagement?fuzzyStr="+fuzzy;
+					window.location.href = "../../WarehouseManagement?fuzzyStr="+fuzzy;
 					//location.reload();
 				}
 			);
 		$("#refresh").click(
 				function()
 				{
-					window.location.href = "../../ProductManagement";
+					window.location.href = "../../WarehouseManagement";
 				}
 			);
-		$("#newAccount").blur(
+		$("#newNumber").blur(
 			function()
 			{
 				$("#AccountTip").addClass("hide");
-				var user = $("#newAccount").val();
-				if(user !== null)
+				var warehouse = $("#newNumber").val();
+				if(warehouse !== null)
 					{
-						var url = "../../CheckInfo?type=user&user="+user;
+						var url = "../../CheckInfo?type=warehouse&warehouse="+warehouse;
 						//alert(url);
 						ajaxGetResponeText("post",url,false);
 						var text = $("#tempVar").text();
@@ -86,16 +86,16 @@ $(document).ready(
 			function()
 			{
 				$("isNull").addClass("hide");
-				var account = $("#newAccount").val();
-				var description = $("#newDescription").val();
-				var password = $("#newPassword").val();
+				var number = $("#newNumber").val();
+				var telephone = $("#newTelephone").val();
+				var administrator = $("#newAdministrator").val();
 				var name = $("#newName").val();
-				if(name === "" || password === "" || description === "" || account === "")
+				if(number === "" || telephone === "" || administrator === "" || name === "")
 					{
-						//alert("null");
 						$("#isNull").removeClass("hide");
 						return false;
 					}
+				$("#newNumber").removeAttr("disabled");
 				//alert("null");
 			}
 		);

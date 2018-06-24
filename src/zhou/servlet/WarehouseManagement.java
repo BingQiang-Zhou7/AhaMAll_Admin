@@ -1,11 +1,16 @@
 package zhou.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import zhou.dao.Warehouse;
+import zhou.db.DataProcess;
 
 /**
  * Servlet implementation class WarehouseManagement
@@ -31,6 +36,12 @@ public class WarehouseManagement extends HttpServlet {
 		//PrintWriter out = response.getWriter();
 		System.out.println("In Here: WarehouseManagementServlet");
 		
+		EditWarehouseInfo(request);
+		
+		DeleteProductInfo(request);
+		
+		SearchProductInfo(request);
+		
 		System.out.println("Go Here: pages/warehousemanagement/warehousemanagement.jsp");
 		response.sendRedirect("pages/warehousemanagement/warehousemanagement.jsp");
 	}
@@ -41,5 +52,51 @@ public class WarehouseManagement extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
-
+	void EditWarehouseInfo(HttpServletRequest request)
+	{
+		System.out.println(request.getRequestURI()+request.getQueryString());
+		String warehouseNo = request.getParameter("newNumber");
+		String warehouseName = request.getParameter("newName");
+		String warehouseContact = request.getParameter("newAdministrator");
+		String warehouseContactTele = request.getParameter("newTelephone");
+		System.out.println(warehouseNo+"\t"+warehouseName+"\t"+warehouseContact+"\t"+warehouseContactTele);
+		if (warehouseNo != null && warehouseName != null && warehouseContact != null 
+				&& warehouseContactTele != null) {
+			new DataProcess("backstage").EditWarehouseInfo(warehouseNo, warehouseName, warehouseContact, warehouseContactTele);
+			System.out.println("Do It: EditWarehouseInfo");
+		}
+	}
+	
+	
+	void DeleteProductInfo(HttpServletRequest request)
+	{
+		String warehouseNo = request.getParameter("warehouseNo");
+		if ( warehouseNo != null && warehouseNo != "") {
+			new DataProcess("backstage").DeleteWarehouseInfo(warehouseNo);
+//			response.sendRedirect("pages/usermanagement/usermanagement.jsp");
+//			return ;
+			System.out.println("Do It: DeleteWarehouseInfo");
+		}
+	}
+	
+	void SearchProductInfo(HttpServletRequest request)
+	{
+		String pageNo = request.getParameter("pageNo");
+		String fuzzyStr = request.getParameter("fuzzyStr");
+		
+		if (pageNo == null) {
+			pageNo = "0";
+		}
+		
+		ArrayList<Warehouse> warehouses = null;
+		if (fuzzyStr == null || fuzzyStr == "" ) {
+			warehouses = new DataProcess("backstage").SearchAllWarehouse(pageNo);
+			System.out.println("Do It: SearchAllWarehouse");
+		}
+		else {
+			warehouses = new DataProcess("backstage").SearchWarehouseFuzzy(fuzzyStr, pageNo);
+			System.out.println("Do It: SearchWarehouseFuzzy");
+		}
+		request.getSession().setAttribute("warehouses", warehouses);
+	}
 }
