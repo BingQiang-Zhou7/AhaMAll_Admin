@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import zhou.dao.Product;
 import zhou.dao.User;
 import zhou.db.DataAccess;
 
@@ -64,7 +65,7 @@ public class DataProcess {
 		}
 		return false;
 	} 
-	
+
 	
 	public boolean DeleteUserInfo(String adminAccount) {
 		Object[] parameter = new Object[] {adminAccount};
@@ -120,5 +121,86 @@ public class DataProcess {
 		Object[] parameter = new Object[] {UserAccount,UserName,UserPassword,UserDescription};
 
 		dataAccess.DatabaseOperations("call Proc_EditUserInfo(?,?,?,?)", parameter);
+	}
+	
+	public boolean CheckProduct(String clothingCode) {
+		Object[] parameter = new Object[] {clothingCode};
+
+		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_CheckProduct(?)", parameter);
+		try {
+				while (resultSet.next()) {
+					if (resultSet.getString(1).equals("1")) {
+						return true;//´æÔÚ
+					}
+					return false;
+				}
+			resultSet.close();
+			closeConnect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return false;
+	}
+	
+	
+	
+	public boolean DeleteProductInfo(String clothingCode) {
+		Object[] parameter = new Object[] {clothingCode};
+
+		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_DeleteProductInfo(?)", parameter);
+		if (resultSet == null) {
+			return true;
+		}
+		return false;
+	} 
+	
+	public ArrayList<Product> SearchAllProduct(String pageNo) {
+		
+		Object[] parameter = new Object[] {pageNo};
+		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_SearchAllProduct(?)", parameter);
+		ArrayList<Product> products = new ArrayList<Product>();
+			try {
+				while (resultSet.next()) {
+					products.add(new Product(resultSet.getString("ClothingCode"), resultSet.getString("ClothingColor"),
+							resultSet.getString("ClothingSize"),resultSet.getString("ClothingName"),
+							resultSet.getString("ClothingOuterM"),resultSet.getString("ClothingInnerM"), 
+							resultSet.getString("ClothingPrice"), resultSet.getString("ClothingFlag")));
+					//System.out.println("heloo");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+			//System.out.println(dataAccess.getErrorStr());
+			return products;
+	}
+	
+	public ArrayList<Product> SearchProductFuzzy(String fuzzyStr, String pageNo) {
+		
+		Object[] parameter = new Object[] {fuzzyStr,pageNo};
+		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_SearchProductFuzzy(?,?)", parameter);
+		ArrayList<Product> products = new ArrayList<Product>();
+		try {
+			while (resultSet.next()) {
+				products.add(new Product(resultSet.getString("ClothingCode"), resultSet.getString("ClothingColor"),
+						resultSet.getString("ClothingSize"),resultSet.getString("ClothingName"),
+						resultSet.getString("ClothingOuterM"),resultSet.getString("ClothingInnerM"), 
+						resultSet.getString("ClothingPrice"), resultSet.getString("ClothingFlag")));
+				//System.out.println("heloo");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		//System.out.println(dataAccess.getErrorStr());
+		return products;
+	}
+	
+	public void EditProductInfo(String clothingCode,String clothingColor,String clothingSize,
+			String clothingName,String clothingPrice) {
+		Object[] parameter = new Object[] {clothingCode,clothingColor,clothingSize,clothingName,clothingPrice};
+
+		dataAccess.DatabaseOperations("call Proc_EditProductInfo(?,?,?,?,?)", parameter);
 	}
 }

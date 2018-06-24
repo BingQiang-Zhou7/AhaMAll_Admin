@@ -9,7 +9,7 @@
 <link type="text/css" rel="stylesheet" href="../../mainjsp/main.css">
 <script src="../../jquerylib/jquery-3.3.1.min.js"></script>
 <script src="../../mainjsp/main.js"></script>
-<script src="usermanagement.js"></script>
+<script src="productmanagement.js"></script>
 </head>
 <body>
 <%@include file="../../mainjsp/main.jsp" %>
@@ -45,8 +45,8 @@
 						<td><input class="table_input" type="text" readonly value="${user.getUserPassword()}" maxlength="16"></td>
 						<td><textarea rows="1" cols="21" maxlength="128" readonly style="height: 20px;">${user.getUserDescription()}</textarea></td>
 						<td>
-						<a href="javascript:void(0);" class="edit">edit</a>
-						<a href="../../UserManagement?account=${user.getUserAccount()}">delete</a>
+						<a href="javascript:void(0);" class="edit">edit user</a>
+						<a href="../../ProductManagement?account=${user.getUserAccount()}">delete user</a>
 						</td>
 					</tr>
 					</c:forEach>
@@ -76,7 +76,7 @@
 	<div class="cover hide">
 		<div class="input_message_box">
 			<div class="close"><img id="close" src="../../images/close.png"></div>
-			<form method="post" action="../../UserManagement">
+			<form method="post" action="../../ProductManagement">
 				<ul>
 					<li>
 						<b style="font-size: 28px;">user info</b>

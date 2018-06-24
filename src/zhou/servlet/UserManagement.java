@@ -38,6 +38,7 @@ public class UserManagement extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		//PrintWriter out = response.getWriter();
+		System.out.println("------------------------------------------------");
 		System.out.println("In Here: UserManagementServlet");
 		
 		DeleteUserInfo(request);
@@ -47,6 +48,7 @@ public class UserManagement extends HttpServlet {
 		SearchUserInfo(request);
 		
 		System.out.println("Go Here: pages/usermanagement/usermanagement.jsp");
+		System.out.println("------------------------------------------------");
 		response.sendRedirect("pages/usermanagement/usermanagement.jsp");
 	}
 
@@ -65,7 +67,7 @@ public class UserManagement extends HttpServlet {
 		String description = request.getParameter("userDescription");
 		if (account != null && name != null && password != null && description != null) {
 			new DataProcess("backstage").EditUser(account, name, password, description);
-			System.out.println("EditUserInfo");
+			System.out.println("Do It: EditUserInfo");
 		}
 	}
 	
@@ -76,7 +78,7 @@ public class UserManagement extends HttpServlet {
 			new DataProcess("backstage").DeleteUserInfo(account);
 //			response.sendRedirect("pages/usermanagement/usermanagement.jsp");
 //			return ;
-			System.out.println("DeleteUserInfo");
+			System.out.println("Do It: DeleteUserInfo");
 		}
 	}
 	
@@ -93,11 +95,11 @@ public class UserManagement extends HttpServlet {
 		if (fuzzyStr == null || fuzzyStr == "" ) {
 			users = new DataProcess("backstage").SearchAllUser(pageNo);
 			//System.out.println("hello");
-			System.out.println("SearchAllUser");
+			System.out.println("Do It: SearchAllUser");
 		}
 		else {
 			users = new DataProcess("backstage").SearchUserFuzzy(fuzzyStr, pageNo);
-			System.out.println("SearchUserFuzzy");
+			System.out.println("Do It: SearchUserFuzzy");
 		}
 		request.getSession().setAttribute("users", users);
 	}

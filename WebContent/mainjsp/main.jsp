@@ -28,7 +28,7 @@
 	</div>
 	<div class="left_menu">
 		<ul><li><a href="../../UserManagement" id="usermanagement">User Management</a></li></ul>
-		<ul><li><a href="javascript:void(0);">Product Management</a></li></ul>
+		<ul><li><a href="../../ProductManagement" id="productmanagement">Product Management</a></li></ul>
 		<ul><li><a href="javascript:void(0);" >Warehouse Management</a></li></ul>
 		<ul><li><a href="javascript:void(0);">Outbound Management</a></li></ul>
 		<ul><li><a href="javascript:void(0);">Inbound Management</a></li></ul>

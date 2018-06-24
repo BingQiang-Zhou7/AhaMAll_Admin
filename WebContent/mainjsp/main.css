@@ -67,3 +67,100 @@
 	text-align: center;
 /*	border: solid 1px;*/
 }
+
+/* CSS Document */
+table,th,td{
+	border: 1px solid;
+	border-collapse: collapse;
+}
+table{
+	width: inherit;
+}
+.table_input{
+	width:98%;
+	text-align: center;
+}
+.table_chechbox{
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+}
+.user_manager{
+	margin: 2% auto;
+	width:inherit;
+	width: 800px;
+}
+.table_header{
+	height: 10%;
+	width: inherit;
+}
+.table_info{
+	text-align: left;	
+}
+.table_opearter{
+	text-align: right;
+}
+.table_style{
+	width: inherit;
+}
+.table_info p{	
+	float: left;
+	margin: 0px;
+	padding: 0px;
+}
+.table_opearter p{
+	margin: 0 0 0 20px;
+	padding: 0px;
+	text-decoration: underline;
+}
+.table_opearter p:hover{
+	cursor: pointer;
+}
+.left
+{
+	float: right;
+}
+.cover{
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+.input_message_box
+{
+	margin: 10% auto;
+	padding-bottom: 20px;
+/*	background-color: white;*/
+	background-color: aliceblue;
+	border: solid medium dodgerblue;
+	width:280px;
+}
+.close{
+	width: 100%;
+	text-align: right;
+}
+.close img{
+	border: solid 1px dodgerblue;
+	padding: 4px;
+}
+
+.table_style tr td input
+{
+	border:0px;
+	background-color:transparent;
+}
+.search
+{
+	height:50px;
+	/*border:1px solid;*/
+}
+
+.search input
+{
+	width:220px;
+}
+.pagenumber table, .pagenumber tbody, .pagenumber tr, .pagenumber td
+{
+	border:0;
+}

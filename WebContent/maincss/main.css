@@ -16,7 +16,7 @@ ul{
 	list-style:none;
 }
 
-input{
+input,select{
 	width: 160px;
 }
 
