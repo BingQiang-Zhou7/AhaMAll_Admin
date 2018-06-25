@@ -9,7 +9,7 @@
 <link type="text/css" rel="stylesheet" href="../../mainjsp/main.css">
 <script src="../../jquerylib/jquery-3.3.1.min.js"></script>
 <script src="../../mainjsp/main.js"></script>
-<script src="productmanagement.js"></script>
+<script src="outbound.js"></script>
 </head>
 <body>
 <%@include file="../../mainjsp/main.jsp" %>
@@ -21,7 +21,7 @@
 					<button id="search">search</button>
 				</div>
 				<div class="table_info">
-				<p><strong>Product Information</strong></p>
+				<p><strong>Inbound Order Information</strong></p>
 				</div>
 				<div class="table_opearter">
 				<p class="left" id="add">add product</p>
@@ -55,19 +55,18 @@
 					</c:if>
 				</table>
 				<c:if test="${empty sessionScope.products}">
-							<p id="NoInfo">No information found!</p>
+							<p>No information found!</p>
 					</c:if>
 			</div>
 			<div class="pagenumber" align="right">
 				<table>
 		        	<tbody>
 		        		<tr>
-		          			<td colspan="0" height="20" align="right">  
-		          			 	第<span id="pageNo">${sessionScope.pPageNo}</span>页 &nbsp;   				
-								<a href="javascript:void(0);" id="Index">首页</a>&nbsp;
-			      				<a href="javascript:void(0);" id="pageUp">上一页</a>&nbsp;
-			      				<a href="javascript:void(0);" id="pageDown">下一页</a>&nbsp; 
-			      				<a href="javascript:void(0);">尾页</a>&nbsp; 
+		          			<td colspan="0" height="20" align="right">     				
+								<a href="#">首页</a>&nbsp; 
+			      				<a href="#">上一页</a>&nbsp;
+			      				<a href="#">下一页</a>&nbsp; 
+			      				<a href="#">尾页</a>&nbsp; 
 										&nbsp;
 							</td>
 		          		</tr>

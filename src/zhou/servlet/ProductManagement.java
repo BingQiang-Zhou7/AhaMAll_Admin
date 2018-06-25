@@ -88,7 +88,20 @@ public class ProductManagement extends HttpServlet {
 		String fuzzyStr = request.getParameter("fuzzyStr");
 		
 		if (pageNo == null) {
-			pageNo = "0";
+			if (request.getSession().getAttribute("pPageNo") == null) {
+				pageNo = "0";
+				request.getSession().setAttribute("pPageNo","1");
+			}
+			else {
+				pageNo = String.valueOf(request.getSession().getAttribute("pPageNo"));
+				int page = (Integer.valueOf(pageNo));
+				pageNo = String.valueOf(page-1);
+				request.getSession().setAttribute("pPageNo",page);
+			}
+		}
+		else {
+			int page = (Integer.valueOf(pageNo)+1);
+			request.getSession().setAttribute("pPageNo",page);
 		}
 		
 		ArrayList<Product> products = null;
@@ -100,6 +113,13 @@ public class ProductManagement extends HttpServlet {
 			products = new DataProcess("backstage").SearchProductFuzzy(fuzzyStr, pageNo);
 			System.out.println("Do It: SearchProductFuzzy");
 		}
+		
+		if (products.size() == 0) {
+			request.getSession().removeAttribute("products");
+			return;
+		}
+		
+		request.getSession().removeAttribute("products");
 		request.getSession().setAttribute("products", products);
 	}
 }

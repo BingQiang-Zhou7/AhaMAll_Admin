@@ -15,12 +15,12 @@ class DataProcessTest {
 		
 		//ChangePassword();
 		
-		//SearchAllUser("0");
+		SearchAllUser("1");
 		//SearchUserFuzzy("a","0");
 //		EditUser("4","44","444","4444");
 //		EditUser("3","333","333","333");
 		
-		new DataProcess("backstage").EditWarehouseInfo("5", "555", "555", "555");
+		//new DataProcess("backstage").EditWarehouseInfo("5", "555", "555", "555");
 	}
 	
 	void CheckAdmin()
@@ -45,6 +45,7 @@ class DataProcessTest {
 	void SearchAllUser(String no)
 	{
 		ArrayList<User> users = new DataProcess("backstage").SearchAllUser(no);
+		//System.out.println(users.size());
 		for (User user : users) {
 			System.out.println(user.getUserAccount());
 			System.out.println(user.getUserDescription());

@@ -88,7 +88,20 @@ public class UserManagement extends HttpServlet {
 		String fuzzyStr = request.getParameter("fuzzyStr");
 		
 		if (pageNo == null) {
-			pageNo = "0";
+			if (request.getSession().getAttribute("uPageNo") == null) {
+				pageNo = "0";
+				request.getSession().setAttribute("uPageNo","1");
+			}
+			else {
+				pageNo = String.valueOf(request.getSession().getAttribute("uPageNo"));
+				int page = (Integer.valueOf(pageNo));
+				pageNo = String.valueOf(page-1);
+				request.getSession().setAttribute("uPageNo",page);
+			}
+		}
+		else {
+			int page = (Integer.valueOf(pageNo)+1);
+			request.getSession().setAttribute("uPageNo",page);
 		}
 		
 		ArrayList<User> users = null;
@@ -101,6 +114,12 @@ public class UserManagement extends HttpServlet {
 			users = new DataProcess("backstage").SearchUserFuzzy(fuzzyStr, pageNo);
 			System.out.println("Do It: SearchUserFuzzy");
 		}
+		if (users.size() == 0) {
+			//System.out.println("11");
+			request.getSession().removeAttribute("users");
+			return;
+		}
 		request.getSession().setAttribute("users", users);
+		
 	}
 }

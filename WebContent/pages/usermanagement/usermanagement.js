@@ -100,6 +100,101 @@ $(document).ready(
 				//alert("null");
 			}
 		);
-		
+		$("#Index").click(
+				function()
+				{
+					var pageNo = Number($("#pageNo").text());
+					if(pageNo == 1)
+						{
+							return;
+						}
+					$("#pageNo").text("1");
+					var pageUrl;
+					if(location.search !== "")
+						{
+							pageUrl = "../../UserManagement?"+location.search+"&pageNo=0";
+						}
+					else
+						{
+							pageUrl = "../../UserManagement?pageNo=0";
+						}
+					 $.ajax({ 
+				        url:pageUrl,//servlet path
+				        type:"POST",
+				        async:false,
+				        success:function(e){ 
+				        	//console.log(pageUrl+" call success!");
+				        	location.reload();
+							//alert(pageUrl+" call success!");
+				        }  
+				    });
+					
+				}
+			);
+			$("#pageUp").click(
+				function()
+				{
+					var pageNo = Number($("#pageNo").text());
+					if(pageNo > 1)
+						{
+							pageNo=pageNo-1;
+							$("#pageNo").text(pageNo);
+						}
+					else {
+						//alert("1");
+						return;
+					}
+					pageNo=pageNo-1;
+					var pageUrl;
+					if(location.search !== "")
+						{
+							pageUrl = "../../UserManagement?"+location.search+"&pageNo="+pageNo;
+						}
+					else
+						{
+							pageUrl = "../../UserManagement?pageNo="+pageNo;
+						}
+					 $.ajax({ 
+				        url:pageUrl,//servlet path
+				        type:"POST",
+				        async:false,
+				        success:function(e){ 
+				            //alert(pageUrl+" call success!");
+				        	//console.log(pageUrl+" call success!");
+				        	location.reload();
+				        }  
+				    });
+				}
+			);
+			$("#pageDown").click(
+				function()
+				{
+					if($("#NoInfo")[0])
+					{
+						return;
+					}
+					var pageNo = Number($("#pageNo").text());
+					$("#pageNo").text(pageNo+1);
+					var pageUrl;
+					if(location.search !== "")
+						{
+							pageUrl = "../../UserManagement?"+location.search+"&pageNo="+pageNo;
+						}
+					else
+						{
+							pageUrl = "../../UserManagement?pageNo="+pageNo;
+						}
+					 $.ajax({ 
+				        url:pageUrl,//servlet path
+				        type:"POST",
+				        async:false,
+				        success:function(e){ 
+				           // alert(pageUrl+" call success!");
+				        	//console.log(pageUrl+" call success!");
+				        	location.reload();
+				        }  
+				    });
+				}
+			);
 	}
 );

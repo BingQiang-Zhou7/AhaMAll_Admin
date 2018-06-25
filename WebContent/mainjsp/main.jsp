@@ -27,12 +27,15 @@
 		</div>
 	</div>
 	<div class="left_menu">
-		<ul><li><a href="../../UserManagement" id="usermanagement">User Management</a></li></ul>
-		<ul><li><a href="../../ProductManagement" id="productmanagement">Product Management</a></li></ul>
-		<ul><li><a href="../../WarehouseManagement"  id="warehousemanagement">Warehouse Management</a></li></ul>
-		<ul><li><a href="javascript:void(0);">Outbound Management</a></li></ul>
-		<ul><li><a href="javascript:void(0);">Inbound Management</a></li></ul>
-		<ul><li><a href="../changepassword/changepassword.jsp" id="changepassword">Extension Operater</a></li></ul>
+		<p>System Management</p>
+		<ul><li><a href="../../UserManagement" id="usermanagement">User</a></li></ul>
+		<ul><li><a href="../../ProductManagement" id="productmanagement">Product</a></li></ul>
+		<ul><li><a href="../../WarehouseManagement"  id="warehousemanagement">Warehouse</a></li></ul>
+		<p>Inventory Management</p>
+		<ul><li><a href="../../OutboundServlet" id="outbound">Outbound</a></li></ul>
+		<ul><li><a href="../../InboundServlet" id="inbound">Inbound</a></li></ul>
+		<p>Extension Operater</p>
+		<ul><li><a href="../changepassword/changepassword.jsp" id="changepassword">Change Password</a></li></ul>
 	</div>
 	<div id="tempVar" class="hide">hello</div>
 </body>

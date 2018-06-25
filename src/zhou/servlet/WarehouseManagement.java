@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import zhou.dao.Warehouse;
 import zhou.db.DataProcess;
 
@@ -34,6 +35,7 @@ public class WarehouseManagement extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		//PrintWriter out = response.getWriter();
+		System.out.println("----------------------------------------------------------");
 		System.out.println("In Here: WarehouseManagementServlet");
 		
 		EditWarehouseInfo(request);
@@ -43,6 +45,7 @@ public class WarehouseManagement extends HttpServlet {
 		SearchProductInfo(request);
 		
 		System.out.println("Go Here: pages/warehousemanagement/warehousemanagement.jsp");
+		System.out.println("----------------------------------------------------------");
 		response.sendRedirect("pages/warehousemanagement/warehousemanagement.jsp");
 	}
 
@@ -54,12 +57,12 @@ public class WarehouseManagement extends HttpServlet {
 	}
 	void EditWarehouseInfo(HttpServletRequest request)
 	{
-		System.out.println(request.getRequestURI()+request.getQueryString());
+		//System.out.println(request.getRequestURI()+request.getQueryString());
 		String warehouseNo = request.getParameter("newNumber");
 		String warehouseName = request.getParameter("newName");
 		String warehouseContact = request.getParameter("newAdministrator");
 		String warehouseContactTele = request.getParameter("newTelephone");
-		System.out.println(warehouseNo+"\t"+warehouseName+"\t"+warehouseContact+"\t"+warehouseContactTele);
+		//System.out.println(warehouseNo+"\t"+warehouseName+"\t"+warehouseContact+"\t"+warehouseContactTele);
 		if (warehouseNo != null && warehouseName != null && warehouseContact != null 
 				&& warehouseContactTele != null) {
 			new DataProcess("backstage").EditWarehouseInfo(warehouseNo, warehouseName, warehouseContact, warehouseContactTele);
@@ -85,9 +88,21 @@ public class WarehouseManagement extends HttpServlet {
 		String fuzzyStr = request.getParameter("fuzzyStr");
 		
 		if (pageNo == null) {
-			pageNo = "0";
+			if (request.getSession().getAttribute("wPageNo") == null) {
+				pageNo = "0";
+				request.getSession().setAttribute("wPageNo","1");
+			}
+			else {
+				pageNo = String.valueOf(request.getSession().getAttribute("wPageNo"));
+				int page = (Integer.valueOf(pageNo));
+				pageNo = String.valueOf(page-1);
+				request.getSession().setAttribute("wPageNo",page);
+			}
 		}
-		
+		else {
+			int page = (Integer.valueOf(pageNo)+1);
+			request.getSession().setAttribute("wPageNo",page);
+		}
 		ArrayList<Warehouse> warehouses = null;
 		if (fuzzyStr == null || fuzzyStr == "" ) {
 			warehouses = new DataProcess("backstage").SearchAllWarehouse(pageNo);
@@ -97,6 +112,14 @@ public class WarehouseManagement extends HttpServlet {
 			warehouses = new DataProcess("backstage").SearchWarehouseFuzzy(fuzzyStr, pageNo);
 			System.out.println("Do It: SearchWarehouseFuzzy");
 		}
+		if (warehouses.size() == 0) {
+			//System.out.println("11");
+			request.getSession().removeAttribute("warehouses");
+			return;
+		}
+		//System.out.println("22");
+		request.getSession().removeAttribute("warehouses");
 		request.getSession().setAttribute("warehouses", warehouses);
+		
 	}
 }

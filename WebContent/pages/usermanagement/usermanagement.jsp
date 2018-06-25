@@ -53,18 +53,19 @@
 					</c:if>
 				</table>
 				<c:if test="${empty sessionScope.users}">
-							<p>No information found!</p>
+							<p id="NoInfo">No information found!</p>
 					</c:if>
 			</div>
 			<div class="pagenumber" align="right">
 				<table>
 		        	<tbody>
 		        		<tr>
-		          			<td colspan="0" height="20" align="right">     				
-								<a href="#">首页</a>&nbsp; 
-			      				<a href="#">上一页</a>&nbsp;
-			      				<a href="#">下一页</a>&nbsp; 
-			      				<a href="#">尾页</a>&nbsp; 
+		          			<td colspan="0" height="20" align="right">  
+		          			 	第<span id="pageNo">${sessionScope.uPageNo}</span>页 &nbsp;   				
+								<a href="javascript:void(0);" id="Index">首页</a>&nbsp;
+			      				<a href="javascript:void(0);" id="pageUp">上一页</a>&nbsp;
+			      				<a href="javascript:void(0);" id="pageDown">下一页</a>&nbsp; 
+			      				<a href="javascript:void(0);">尾页</a>&nbsp; 
 										&nbsp;
 							</td>
 		          		</tr>
