@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=GB18030">
-<title>Product Management</title>
+<title>Outbound Management</title>
 <link type="text/css" rel="stylesheet" href="../../maincss/main.css">
 <link type="text/css" rel="stylesheet" href="../../mainjsp/main.css">
 <script src="../../jquerylib/jquery-3.3.1.min.js"></script>
@@ -17,56 +17,64 @@
 		<div class="user_manager">
 			<div class="table_header">
 				<div class="search" align="right">
-					<input placeholder="search user info" maxlength="16" id="fuzzy">
+					<input placeholder="search order info" maxlength="16" id="fuzzy">
 					<button id="search">search</button>
 				</div>
 				<div class="table_info">
 				<p><strong>Outbound Order Information</strong></p>
 				</div>
 				<div class="table_opearter">
-				<p class="left" id="add">add product</p>
+				<p class="left" id="add">add Order</p>
 				<p id="refresh">refresh</p>
 				</div>
 			</div>
 			<div class="table_style">
 				<table>
 					<tr>
-						<th>Code</th>
-						<th>name</th>
-						<th>color</th>
-						<th>size</th>
-						<th>price</th>
+						<th>number</th>
+						<th>date</th>
+						<th>admin</th>
+						<th>warehouse</th>
+						<th>receive person</th>
+						<th>telephone</th>
 						<th>operate</th>
 					</tr>
-					<c:if test="${not empty sessionScope.products}">
-					<c:forEach items="${sessionScope.products}" var="product">
+					<c:if test="${not empty sessionScope.orderOuts}">
+					<c:forEach items="${sessionScope.orderOuts}" var="orderOut">
 					<tr>
-						<td><input class="table_input" type="text" readonly value="${product.getClothingCode()}"></td>
-						<td><input class="table_input" type="text" readonly value="${product.getClothingName()}"></td>
-						<td><input class="table_input" type="text" readonly value="${product.getClothingColor()}"></td>
-						<td><input class="table_input" type="text" readonly value="${product.getClothingSize()}"></td>
-						<td><input class="table_input" type="text" readonly value="${product.getClothingPrice()}"></td>
+					<c:if test="${orderOut.getOrderOutFlag() == '0'}">
+						<td><a href="../../OrderDetails?orderNo=${orderOut.getOrderOutNo()}">${orderOut.getOrderOutNo()}</a></td>
+					</c:if>
+					<c:if test="${orderOut.getOrderOutFlag() == '1'}">
+						<td><input class="table_input" type="text" readonly value="${orderOut.getOrderOutNo()}"></td>
+					</c:if>
+						<td><input class="table_input" type="text" readonly value="${orderOut.getOrderOutDate()}"></td>
+						<td><input class="table_input" type="text" readonly value="${orderOut.getOrderOutPerson()}"></td>
+						<td><input class="table_input" type="text" readonly value="${orderOut.getOrderOutWarehouse()}"></td>
+						<td><input class="table_input" type="text" readonly value="${orderOut.getOrderOutRperson()}"></td>
+						<td><input class="table_input" type="text" readonly value="${orderOut.getOrderOutTel()}"></td>
 						<td>
 						<a href="javascript:void(0);" class="edit">edit</a>
-						<a href="../../ProductManagement?code=${product.getClothingCode()}">delete</a>
+						<a href="../../OutboundServlet?orderOutNo=${orderOut.getOrderOutNo()}">delete</a>
 						</td>
 					</tr>
 					</c:forEach>
 					</c:if>
 				</table>
-				<c:if test="${empty sessionScope.products}">
-							<p>No information found!</p>
+				<c:if test="${empty sessionScope.orderOuts}">
+							<p id="NoInfo">No information found!</p>
 					</c:if>
 			</div>
 			<div class="pagenumber" align="right">
 				<table>
 		        	<tbody>
 		        		<tr>
-		          			<td colspan="0" height="20" align="right">     				
-								<a href="#">首页</a>&nbsp; 
-			      				<a href="#">上一页</a>&nbsp;
-			      				<a href="#">下一页</a>&nbsp; 
-			      				<a href="#">尾页</a>&nbsp; 
+		          			<td colspan="0" height="20" align="right">  
+		          			 	第<span id="pageNo">${sessionScope.oOPageNo}</span>页 &nbsp;   				
+								<a href="javascript:void(0);" id="Index">首页</a>&nbsp;
+			      				<a href="javascript:void(0);" id="pageUp">上一页</a>&nbsp;
+			      				<a href="javascript:void(0);" id="pageDown">下一页</a>&nbsp; 
+			      				<a href="javascript:void(0);">尾页</a>&nbsp; 
 										&nbsp;
 							</td>
 		          		</tr>
@@ -78,54 +86,30 @@
 	<div class="cover hide">
 		<div class="input_message_box">
 			<div class="close"><img id="close" src="../../images/close.png"></div>
-			<form method="post" action="../../ProductManagement">
+			<form method="post" action="../../OutboundServlet">
 				<ul>
 					<li>
-						<b style="font-size: 28px;">product info</b>
+						<b style="font-size: 28px;">OrderOut info</b>
 					</li>
 				</ul>
 				<ul>
-					<li>product code</li>
-					<li><input maxlength="16" id="newCode" name="newCode"></li>
-					<li style="color: red;" class="hide" id="AccountTip">account is exist!</li>
+					<li>number</li>
+					<li><input id="newNo" name="newNo" value="auto generate" disabled></li>
 				</ul>
 				<ul>
-					<li>product name</li>
-					<li><input maxlength="16" name="newName" id="newName"></li>
-				</ul>
-				<ul>
-					<li>product color</li>
+					<li>warehouse</li>
 					<li>
-						<select name="newColor" id="newColor">  
-			                <option value="Red">Red</option>  
-			                <option value="Orange">Orange</option>  
-			                <option value="Yellow">Yellow</option>  
-			                <option value="Green">Green</option>
-			                <option value="Cyan">Cyan</option>
-			                <option value="Blue">Blue</option>  
-			                <option value="Purple">Purple</option>  
+						<select name="newWarehouse" id="newWarehouse">  
         				</select> 
         			</li>
 				</ul>
 				<ul>
-					<li>product size</li>
-					<li>    
-						<select name="newSize" id="newSize">  
-			                <option value="150">150</option>  
-			                <option value="155">155</option>  
-			                <option value="160">160</option>  
-			                <option value="165">165</option>
-			                <option value="170">170</option>  
-			                <option value="175">175</option> 
-			                <option value="180">180</option>  
-			                <option value="185">185</option> 
-			                <option value="190">190</option>  
-        				</select>  
-        			</li>
+					<li>receive person</li>
+					<li><input id="newReceive" name="newReceive" maxlength="16"></li>
 				</ul>
 				<ul>
-					<li>product price</li>
-					<li><input type="number" min="0" step="0.01" name="newPrice"  id="newPrice"></li>
+					<li>telephone</li>
+					<li><input id="newtelephone" name="newtelephone" maxlength="16"></li>
 				</ul>
 				<ul>
 					<li id = "isNull" style="color: red;" class="hide">Information can't be empty!</li>

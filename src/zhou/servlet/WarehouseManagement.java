@@ -120,6 +120,5 @@ public class WarehouseManagement extends HttpServlet {
 		//System.out.println("22");
 		request.getSession().removeAttribute("warehouses");
 		request.getSession().setAttribute("warehouses", warehouses);
-		
 	}
 }

@@ -34,7 +34,7 @@ $(document).ready
 			{
 				var newPwd1 = $("#newPwd1").val();
 				var newPwd2 = $("#newPwd2").val();
-				if (newPwd1 !== null && newPwd1 != "" && newPwd2 !== null && newPwd2 != "") {
+				if (newPwd1 !== null && newPwd1 != "" && newPwd2 !== null && newPwd2 !== "") {
 					if(newPwd1 !== newPwd2)
 					   {
 					   		$("#ErrorTip").removeClass("hide");

@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import zhou.dao.OrderIn;
+import zhou.dao.OrderOut;
 import zhou.dao.Product;
 import zhou.dao.User;
 import zhou.dao.Warehouse;
@@ -257,6 +259,23 @@ public class DataProcess {
 			return warehouses;
 	}
 	
+	public String SearchAllWarehouseInfo() {
+	
+		String warehouseInfo = new String("");
+		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_SearchAllWarehouseInfo()", null);
+			try {
+				while (resultSet.next()) {
+					warehouseInfo=warehouseInfo+resultSet.getString("WarehouseNo")+"_";
+					//System.out.println(resultSet.getString("WarehouseNo"));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+			//System.out.println(dataAccess.getErrorStr());
+			return warehouseInfo;
+	}
+	
 	public ArrayList<Warehouse> SearchWarehouseFuzzy(String fuzzyStr, String pageNo) {
 		
 		Object[] parameter = new Object[] {fuzzyStr,pageNo};
@@ -282,4 +301,137 @@ public class DataProcess {
 
 		dataAccess.DatabaseOperations("call Proc_EditWarehouseInfo(?,?,?,?)", parameter);
 	}
+	
+	public ArrayList<OrderIn> SearchAllOrderIn(String pageNo) {
+		
+		Object[] parameter = new Object[] {pageNo};
+		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_SearchAllOrderIn(?)", parameter);
+		ArrayList<OrderIn> orderIns = new ArrayList<OrderIn>();
+		try {
+			while (resultSet.next()) {
+				orderIns.add(new OrderIn(resultSet.getString("OrderInNo"), resultSet.getString("OrderInDate"),
+						resultSet.getString("OrderinPerson"),resultSet.getString("OrderInWarehouse"),
+						resultSet.getString("OrderInBefrom"),resultSet.getString("OrderInRemark"),resultSet.getString("OrderInFlag")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		//System.out.println(dataAccess.getErrorStr());
+		return orderIns;
+	}
+	
+	public ArrayList<OrderIn> SearchOrderInFuzzy(String fuzzyStr, String pageNo) {
+		
+		Object[] parameter = new Object[] {fuzzyStr,pageNo};
+		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_SearchOrderInFuzzy(?,?)", parameter);
+		ArrayList<OrderIn> orderIns = new ArrayList<OrderIn>();
+		try {
+			while (resultSet.next()) {
+				orderIns.add(new OrderIn(resultSet.getString("OrderInNo"), resultSet.getString("OrderInDate"),
+						resultSet.getString("OrderinPerson"),resultSet.getString("OrderInWarehouse"),
+						resultSet.getString("OrderInBefrom"),resultSet.getString("OrderInRemark"),resultSet.getString("OrderInFlag")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		//System.out.println(dataAccess.getErrorStr());
+		return orderIns;
+	}
+	
+	public boolean DeleteOrderInInfo(String orderInNo) {
+		Object[] parameter = new Object[] {orderInNo};
+
+		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_DeleteOrderInInfo(?)", parameter);
+		if (resultSet == null) {
+			return true;
+		}
+		return false;
+	} 
+	public boolean ComfirmOrderInInfo(String orderInNo) {
+		Object[] parameter = new Object[] {orderInNo};
+
+		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_ComfirmOrderInInfo(?)", parameter);
+		if (resultSet == null) {
+			return true;
+		}
+		return false;
+	}
+	
+	public void EditOrderInInfo(String orderInNo,String orderinPerson,
+			String orderInWarehouse,String orderInBefrom) {
+		Object[] parameter = new Object[] {orderInNo,orderinPerson,orderInWarehouse,orderInBefrom};
+
+		dataAccess.DatabaseOperations("call Proc_EditOrderInInfo(?,?,?,?)", parameter);
+	}
+	public ArrayList<OrderOut> SearchAllOrderOut(String pageNo) {
+		
+		Object[] parameter = new Object[] {pageNo};
+		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_SearchAllOrderOut(?)", parameter);
+		ArrayList<OrderOut> orderOuts = new ArrayList<OrderOut>();
+		try {
+			while (resultSet.next()) {
+				orderOuts.add(new OrderOut(resultSet.getString("OrderOutNo"), resultSet.getString("OrderOutDate"),
+						resultSet.getString("OrderOutPerson"),resultSet.getString("OrderOutWarehouse"),
+						resultSet.getString("OrderOutRperson"),resultSet.getString("OrderOutTel"),
+						resultSet.getString("OrderOutAddress"),resultSet.getString("OrderOutRemark"),
+						resultSet.getString("OrderOutFlag")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		//System.out.println(dataAccess.getErrorStr());
+		return orderOuts;
+	}
+	
+	public ArrayList<OrderOut> SearchOrderOutFuzzy(String fuzzyStr, String pageNo) {
+		
+		Object[] parameter = new Object[] {fuzzyStr,pageNo};
+		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_SearchOrderOutFuzzy(?,?)", parameter);
+		ArrayList<OrderOut> orderOuts = new ArrayList<OrderOut>();
+		try {
+			while (resultSet.next()) {
+				orderOuts.add(new OrderOut(resultSet.getString("OrderOutNo"), resultSet.getString("OrderOutDate"),
+						resultSet.getString("OrderOutPerson"),resultSet.getString("OrderOutWarehouse"),
+						resultSet.getString("OrderOutRperson"),resultSet.getString("OrderOutTel"),
+						resultSet.getString("OrderOutAddress"),resultSet.getString("OrderOutRemark"),
+						resultSet.getString("OrderOutFlag")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		//System.out.println(dataAccess.getErrorStr());
+		return orderOuts;
+	}
+	
+	public boolean DeleteOrderOutInfo(String orderOutNo) {
+		Object[] parameter = new Object[] {orderOutNo};
+
+		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_DeleteOrderOutInfo(?)", parameter);
+		if (resultSet == null) {
+			return true;
+		}
+		return false;
+	} 
+	public boolean ComfirmOrderOutInfo(String orderOutNo) {
+		Object[] parameter = new Object[] {orderOutNo};
+
+		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_ComfirmOrderOutInfo(?)", parameter);
+		if (resultSet == null) {
+			return true;
+		}
+		return false;
+	}
+	
+	public void EditOrderOutInfo(String orderOutNo,String orderOutPerson,
+			String orderOutWarehouse,String orderOutRperson,String orderOutTel) {
+		Object[] parameter = new Object[] {orderOutNo,orderOutPerson,orderOutWarehouse,orderOutRperson,orderOutTel};
+
+		dataAccess.DatabaseOperations("call Proc_EditOrderOutInfo(?,?,?,?,?)", parameter);
+	}
+	
+	
 }

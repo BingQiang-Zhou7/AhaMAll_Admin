@@ -103,7 +103,7 @@ $(document).ready(
 			function()
 			{
 				var pageNo = Number($("#pageNo").text());
-				if(pageNo == 1)
+				if(pageNo === 1)
 					{
 						return;
 					}

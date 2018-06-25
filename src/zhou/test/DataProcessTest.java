@@ -15,12 +15,13 @@ class DataProcessTest {
 		
 		//ChangePassword();
 		
-		SearchAllUser("1");
+		//SearchAllUser("1");
 		//SearchUserFuzzy("a","0");
 //		EditUser("4","44","444","4444");
 //		EditUser("3","333","333","333");
 		
 		//new DataProcess("backstage").EditWarehouseInfo("5", "555", "555", "555");
+		System.out.println(String.valueOf(System.currentTimeMillis()));
 	}
 	
 	void CheckAdmin()
