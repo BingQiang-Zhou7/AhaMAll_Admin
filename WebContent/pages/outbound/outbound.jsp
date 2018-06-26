@@ -42,12 +42,7 @@
 					<c:if test="${not empty sessionScope.orderOuts}">
 					<c:forEach items="${sessionScope.orderOuts}" var="orderOut">
 					<tr>
-					<c:if test="${orderOut.getOrderOutFlag() == '0'}">
-						<td><a href="../../OrderDetails?orderNo=${orderOut.getOrderOutNo()}">${orderOut.getOrderOutNo()}</a></td>
-					</c:if>
-					<c:if test="${orderOut.getOrderOutFlag() == '1'}">
-						<td><input class="table_input" type="text" readonly value="${orderOut.getOrderOutNo()}"></td>
-					</c:if>
+						<td><a href="../../OutOrderInfoServlet?orderNo=${orderOut.getOrderOutNo()}&flag=${orderOut.getOrderOutFlag()}">${orderOut.getOrderOutNo()}</a></td>
 						<td><input class="table_input" type="text" readonly value="${orderOut.getOrderOutDate()}"></td>
 						<td><input class="table_input" type="text" readonly value="${orderOut.getOrderOutPerson()}"></td>
 						<td><input class="table_input" type="text" readonly value="${orderOut.getOrderOutWarehouse()}"></td>

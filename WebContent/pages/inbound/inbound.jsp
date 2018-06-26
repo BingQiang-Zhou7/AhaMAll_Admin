@@ -41,12 +41,8 @@
 					<c:if test="${not empty sessionScope.orderIns}">
 					<c:forEach items="${sessionScope.orderIns}" var="orderIn">
 					<tr>
-					<c:if test="${orderIn.getOrderInFlag() == '0'}">
-						<td><a href="../../OrderDetails?orderNo=${orderIn.getOrderInNo()}">${orderIn.getOrderInNo()}</a></td>
-					</c:if>
-					<c:if test="${orderIn.getOrderInFlag() == '1'}">
+						<td><a href="../../OrderDetails?orderNo=${orderIn.getOrderInNo()}&flag=${orderIn.getOrderInFlag()}">${orderIn.getOrderInNo()}</a></td>
 						<td><input class="table_input" type="text" readonly value="${orderIn.getOrderInNo()}"></td>
-					</c:if>
 						<td><input class="table_input" type="text" readonly value="${orderIn.getOrderInDate()}"></td>
 						<td><input class="table_input" type="text" readonly value="${orderIn.getOrderinPerson()}"></td>
 						<td><input class="table_input" type="text" readonly value="${orderIn.getOrderInWarehouse()}"></td>

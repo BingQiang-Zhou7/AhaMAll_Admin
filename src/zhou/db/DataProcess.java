@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import zhou.dao.OrderIn;
 import zhou.dao.OrderOut;
+import zhou.dao.OrderProduct;
 import zhou.dao.Product;
 import zhou.dao.User;
 import zhou.dao.Warehouse;
@@ -426,12 +427,63 @@ public class DataProcess {
 		return false;
 	}
 	
+	public void EditProductOutOrder(String orderNo,String pcode,
+			String color,String size,String pcount ,String pname,String price) {
+		Object[] parameter = new Object[] {orderNo,pcode,color,size,pcount,pname,price};
+
+		dataAccess.DatabaseOperations("call Proc_EditProductOutOrder(?,?,?,?,?,?,?)", parameter);
+	}
+	public ArrayList<OrderProduct> SearchAllProductOutOrder(String orderNo,String pageNo) {
+		
+		Object[] parameter = new Object[] {orderNo,pageNo};
+		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_SearchAllProductOutOrder(?,?)", parameter);
+		ArrayList<OrderProduct> orderProducts = new ArrayList<OrderProduct>();
+		try {
+			while (resultSet.next()) {
+				orderProducts.add(new OrderProduct(resultSet.getString("OrderInDetailsOrderNo"),resultSet.getString("OrderInDetailsCode"), 
+						resultSet.getString("OrderInDetailsColor"),resultSet.getString("OrderInDetailsSize"),resultSet.getString("OrderInDetailsCount")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		//System.out.println(dataAccess.getErrorStr());
+		return orderProducts;
+	}
+	
+	public ArrayList<OrderProduct> SearchProductOutOrderFuzzy(String orderNo,String fuzzyStr, String pageNo) {
+		
+		Object[] parameter = new Object[] {orderNo,fuzzyStr,pageNo};
+		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_SearchProductOutOrderFuzzy(?,?,?)", parameter);
+		ArrayList<OrderProduct> orderProducts = new ArrayList<OrderProduct>();
+		try {
+			while (resultSet.next()) {
+				orderProducts.add(new OrderProduct(resultSet.getString("OrderInDetailsOrderNo"),resultSet.getString("OrderInDetailsCode"), 
+						resultSet.getString("OrderInDetailsColor"),resultSet.getString("OrderInDetailsSize"),resultSet.getString("OrderInDetailsCount")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		//System.out.println(dataAccess.getErrorStr());
+		return orderProducts;
+	}
+	
+	public boolean DeleteProductOutOrder(String orderNo,String pcode,String color,String size) {
+		Object[] parameter = new Object[] {orderNo,pcode,color,size};
+
+		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_DeleteProductOutOrder(?,?,?,?)", parameter);
+		if (resultSet == null) {
+			return true;
+		}
+		return false;
+	}
+	
 	public void EditOrderOutInfo(String orderOutNo,String orderOutPerson,
 			String orderOutWarehouse,String orderOutRperson,String orderOutTel) {
 		Object[] parameter = new Object[] {orderOutNo,orderOutPerson,orderOutWarehouse,orderOutRperson,orderOutTel};
 
 		dataAccess.DatabaseOperations("call Proc_EditOrderOutInfo(?,?,?,?,?)", parameter);
 	}
-	
 	
 }
