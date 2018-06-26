@@ -433,6 +433,12 @@ public class DataProcess {
 
 		dataAccess.DatabaseOperations("call Proc_EditProductInOrder(?,?,?,?,?,?,?)", parameter);
 	}
+	public void EditProductOutOrder(String orderNo,String pcode,
+			String color,String size,String pcount) {
+		Object[] parameter = new Object[] {orderNo,pcode,color,size,pcount};
+
+		dataAccess.DatabaseOperations("call Proc_EditProductOutOrder(?,?,?,?,?)", parameter);
+	}
 	public ArrayList<OrderProduct> SearchAllProductOrder(String orderNo,String pageNo) {
 		
 		Object[] parameter = new Object[] {orderNo,pageNo};
@@ -485,5 +491,44 @@ public class DataProcess {
 
 		dataAccess.DatabaseOperations("call Proc_EditOrderOutInfo(?,?,?,?,?)", parameter);
 	}
-	
+	public ArrayList<OrderProduct> CheckWarehouseProduct(String orderNo,String pageNo) {
+		
+		Object[] parameter = new Object[] {orderNo,pageNo};
+		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_CheckWarehouseProduct(?,?)", parameter);
+		ArrayList<OrderProduct> orderProducts = new ArrayList<OrderProduct>();
+		try {
+			if (resultSet == null) {
+				return null;
+			}
+			while (resultSet.next()) {
+				orderProducts.add(new OrderProduct(resultSet.getString("OrderInDetailsOrderNo"),resultSet.getString("OrderInDetailsCode"), 
+						resultSet.getString("OrderInDetailsColor"),resultSet.getString("OrderInDetailsSize"),resultSet.getString("OrderInDetailsCount")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		//System.out.println(dataAccess.getErrorStr());
+		return orderProducts;
+	}
+	public ArrayList<OrderProduct> CheckWarehouseProductFuzzy(String orderNo,String fuzzyStr,String pageNo) {
+		
+		Object[] parameter = new Object[] {orderNo,fuzzyStr,pageNo};
+		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_CheckWarehouseProductFuzzy(?,?,?)", parameter);
+		ArrayList<OrderProduct> orderProducts = new ArrayList<OrderProduct>();
+		try {
+			if (resultSet == null) {
+				return null;
+			}
+			while (resultSet.next()) {
+				orderProducts.add(new OrderProduct(resultSet.getString("OrderInDetailsOrderNo"),resultSet.getString("OrderInDetailsCode"), 
+						resultSet.getString("OrderInDetailsColor"),resultSet.getString("OrderInDetailsSize"),resultSet.getString("OrderInDetailsCount")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		//System.out.println(dataAccess.getErrorStr());
+		return orderProducts;
+	}
 }

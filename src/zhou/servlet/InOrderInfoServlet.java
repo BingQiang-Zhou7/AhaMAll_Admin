@@ -98,20 +98,20 @@ public class InOrderInfoServlet extends HttpServlet {
 		}
 
 		if (pageNo == null) {
-			if (request.getSession().getAttribute("opPageNo") == null) {
+			if (request.getSession().getAttribute("ipPageNo") == null) {
 				pageNo = "0";
-				request.getSession().setAttribute("opPageNo","1");
+				request.getSession().setAttribute("ipPageNo","1");
 			}
 			else {
-				pageNo = String.valueOf(request.getSession().getAttribute("opPageNo"));
-				int page = (Integer.valueOf(pageNo));
+				pageNo = String.valueOf(request.getSession().getAttribute("ipPageNo"));
+				int page = Integer.parseInt(pageNo);
 				pageNo = String.valueOf(page-1);
-				request.getSession().setAttribute("opPageNo",page);
+				request.getSession().setAttribute("ipPageNo",page);
 			}
 		}
 		else {
-			int page = (Integer.valueOf(pageNo)+1);
-			request.getSession().setAttribute("opPageNo",page);
+			int page = (Integer.parseInt(pageNo)+1);
+			request.getSession().setAttribute("ipPageNo",page);
 		}
 		
 		ArrayList<OrderProduct> orderProducts = null;

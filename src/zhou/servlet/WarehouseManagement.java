@@ -94,13 +94,13 @@ public class WarehouseManagement extends HttpServlet {
 			}
 			else {
 				pageNo = String.valueOf(request.getSession().getAttribute("wPageNo"));
-				int page = (Integer.valueOf(pageNo));
+				int page = Integer.parseInt(pageNo);
 				pageNo = String.valueOf(page-1);
 				request.getSession().setAttribute("wPageNo",page);
 			}
 		}
 		else {
-			int page = (Integer.valueOf(pageNo)+1);
+			int page = (Integer.parseInt(pageNo)+1);
 			request.getSession().setAttribute("wPageNo",page);
 		}
 		ArrayList<Warehouse> warehouses = null;

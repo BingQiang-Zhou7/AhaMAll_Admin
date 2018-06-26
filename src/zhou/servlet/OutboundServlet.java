@@ -67,13 +67,13 @@ public class OutboundServlet extends HttpServlet {
 			}
 			else {
 				pageNo = String.valueOf(request.getSession().getAttribute("oOPageNo"));
-				int page = (Integer.valueOf(pageNo));
+				int page = Integer.parseInt(pageNo);
 				pageNo = String.valueOf(page-1);
 				request.getSession().setAttribute("oOPageNo",page);
 			}
 		}
 		else {
-			int page = (Integer.valueOf(pageNo)+1);
+			int page = (Integer.parseInt(pageNo)+1);
 			request.getSession().setAttribute("oOPageNo",page);
 		}
 		

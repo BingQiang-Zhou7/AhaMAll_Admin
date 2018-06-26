@@ -4,17 +4,25 @@ $(document).ready(
 	function()
 	{
 		"use strict";
-		$("#add").click(
+		$(".add").click(
 			function()
 			{
 				$(".cover").removeClass("hide");
-				$("#newCount").val("");
-				$("#newSize").val("");
-				$("#newColor").val("");
-				$("#newCode").val("");
-				$("#newSize").removeAttr("disabled");
-				$("#newColor").removeAttr("disabled");
-				$("#newCode").removeAttr("disabled");
+				//alert("123");
+				var count = $(this).parent().prev().children();
+				//alert(description.val());
+				$("#newCount").val(count.val());
+				var size = count.parent().prev().children();
+				//alert(password.val());
+				$("#newSize").val(size.val());
+				var color = size.parent().prev().children();
+				//alert(password.val());
+				$("#newColor").val(color.val());
+				var code = color.parent().prev().children();
+				$("#newCode").val(code.val());
+				$("#newSize").attr("disabled","disable");
+				$("#newColor").attr("disabled","disable");
+				$("#newCode").attr("disabled","disable");
 			}
 		);
 		$(".edit").click(
@@ -114,7 +122,7 @@ $(document).ready(
 				//alert("null");
 			}
 		);
-		$("#Index").click(
+		$("#Index1").click(
 				function()
 				{
 					var pageNo = Number($("#pageNo").text());
@@ -145,7 +153,7 @@ $(document).ready(
 					
 				}
 			);
-			$("#pageUp").click(
+			$("#pageUp1").click(
 				function()
 				{
 					var pageNo = Number($("#pageNo").text());
@@ -180,7 +188,7 @@ $(document).ready(
 				    });
 				}
 			);
-			$("#pageDown").click(
+			$("#pageDown1").click(
 				function()
 				{
 					if($("#NoInfo")[0])
@@ -189,6 +197,7 @@ $(document).ready(
 					}
 					var pageNo = Number($("#pageNo").text());
 					$("#pageNo").text(pageNo+1);
+					//alert(pageNo+1);
 					var pageUrl;
 					if(location.search !== "")
 						{
@@ -210,6 +219,102 @@ $(document).ready(
 				    });
 				}
 			);
+			$("#Index2").click(
+					function()
+					{
+						var pageNo = Number($("#pageNo2").text());
+						if(pageNo === 1)
+							{
+								return;
+							}
+						$("#pageNo2").text("1");
+						var pageUrl;
+						if(location.search !== "")
+							{
+								pageUrl = "../../OutOrderInfoServlet?"+location.search+"&pageNo2=0";
+							}
+						else
+							{
+								pageUrl = "../../OutOrderInfoServlet?pageNo2=0";
+							}
+						 $.ajax({ 
+					        url:pageUrl,//servlet path
+					        type:"POST",
+					        async:false,
+					        success:function(e){ 
+					        	//console.log(pageUrl+" call success!");
+					        	location.reload();
+								//alert(pageUrl+" call success!");
+					        }  
+					    });
+						
+					}
+				);
+				$("#pageUp2").click(
+					function()
+					{
+						var pageNo = Number($("#pageNo2").text());
+						if(pageNo > 1)
+							{
+								pageNo=pageNo-1;
+								$("#pageNo2").text(pageNo);
+							}
+						else {
+							//alert("1");
+							return;
+						}
+						pageNo=pageNo-1;
+						var pageUrl;
+						if(location.search !== "")
+							{
+								pageUrl = "../../OutOrderInfoServlet?"+location.search+"&pageNo2="+pageNo;
+							}
+						else
+							{
+								pageUrl = "../../OutOrderInfoServlet?pageNo2="+pageNo;
+							}
+						 $.ajax({ 
+					        url:pageUrl,//servlet path
+					        type:"POST",
+					        async:false,
+					        success:function(e){ 
+					            //alert(pageUrl+" call success!");
+					        	//console.log(pageUrl+" call success!");
+					        	location.reload();
+					        }  
+					    });
+					}
+				);
+				$("#pageDown2").click(
+					function()
+					{
+						if($("#NoInfo1")[0])
+						{
+							return;
+						}
+						var pageNo = Number($("#pageNo2").text());
+						$("#pageNo2").text(pageNo+1);
+						var pageUrl;
+						if(location.search !== "")
+							{
+								pageUrl = "../../OutOrderInfoServlet?"+location.search+"&pageNo2="+pageNo;
+							}
+						else
+							{
+								pageUrl = "../../OutOrderInfoServlet?pageNo2="+pageNo;
+							}
+						 $.ajax({ 
+					        url:pageUrl,//servlet path
+					        type:"POST",
+					        async:false,
+					        success:function(e){ 
+					           // alert(pageUrl+" call success!");
+					        	//console.log(pageUrl+" call success!");
+					        	location.reload();
+					        }  
+					    });
+					}
+				);
 	}
 );
 //function getWarehouseInfo() {

@@ -80,7 +80,7 @@
 		        	<tbody>
 		        		<tr>
 		          			<td colspan="0" height="20" align="right">  
-		          			 	第<span id="pageNo">${sessionScope.opPageNo}</span>页 &nbsp;   				
+		          			 	第<span id="pageNo">${sessionScope.ipPageNo}</span>页 &nbsp;   				
 								<a href="javascript:void(0);" id="Index">首页</a>&nbsp;
 			      				<a href="javascript:void(0);" id="pageUp">上一页</a>&nbsp;
 			      				<a href="javascript:void(0);" id="pageDown">下一页</a>&nbsp; 

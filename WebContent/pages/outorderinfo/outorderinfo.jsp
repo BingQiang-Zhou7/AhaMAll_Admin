@@ -27,6 +27,7 @@
 	</div>
 		<div class="main_panel">
 		<div class="user_manager">
+		<c:if test="${flag == '0'}">
 			<div class="table_header">
 				<div class="search" align="right">
 					<input placeholder="search order info" maxlength="16" id="fuzzy">
@@ -35,41 +36,35 @@
 				<div class="table_info">
 				<p><strong>Warehouse product</strong></p>
 				</div>
-				<div class="table_opearter hide">
-				<c:if test="${flag == '0'}">
-					<p class="left" id="add">add</p>
-					<p class="left" id="save">save</p>
-				</c:if>
+				<div class="table_opearter">
+				<p class="left" id="refresh">refresh</p>
 				</div>
 			</div>
 			<div class="table_style">
 				<table>
 					<tr>
-						<th>number</th>
-						<th>name</th>
-						<th>admin</th>
-						<th>telephone</th>
-						<th>storage</th>
+						<th>code</th>
+						<th>color</th>
+						<th>size</th>
+						<th>count</th>
 						<th>operate</th>
 					</tr>
-					<c:if test="${not empty sessionScope.orderProducts}">
-					<c:forEach items="${sessionScope.orderProducts}" var="orderProduct">
+					<c:if test="${not empty sessionScope.warehouseProducts}">
+					<c:forEach items="${sessionScope.warehouseProducts}" var="warehouseProduct">
 					<tr>
-						<td><input class="table_input" type="text" readonly value="${orderProduct.getOrderInDetailsCode()}"></td>
-						<td><input class="table_input" type="text" readonly value="${orderProduct.getOrderInDetailsColor()}"></td>
-						<td><input class="table_input" type="text" readonly value="${orderProduct.getOrderInDetailsSize()}"></td>
-						<td><input class="table_input" type="text" readonly value="${orderProduct.getOrderInDetailsCount()}"></td>
-						<c:if test="${flag == '0'}">
+						<td><input class="table_input" type="text" readonly value="${warehouseProduct.getOrderInDetailsCode()}"></td>
+						<td><input class="table_input" type="text" readonly value="${warehouseProduct.getOrderInDetailsColor()}"></td>
+						<td><input class="table_input" type="text" readonly value="${warehouseProduct.getOrderInDetailsSize()}"></td>
+						<td><input class="table_input" type="text" readonly value="${warehouseProduct.getOrderInDetailsCount()}"></td>
 						<td>
-						<a href="javascript:void(0);" class="edit">add</a>
-						<a class="hide" href="../../OutOrderInfoServlet?code=${orderProduct.getOrderInDetailsCode()}&color=${orderProduct.getOrderInDetailsColor()}&size=${orderProduct.getOrderInDetailsSize()}">delete</a>
+						<a href="javascript:void(0);" class="add">add</a>
+						<a class="hide" href="../../OutOrderInfoServlet?code=${warehouseProduct.getOrderInDetailsCode()}&color=${orderProduct.getOrderInDetailsColor()}&size=${orderProduct.getOrderInDetailsSize()}">delete</a>
 						</td>
-						</c:if>
 					</tr>
 					</c:forEach>
 					</c:if>
 				</table>
-				<c:if test="${empty sessionScope.orderProducts}">
+				<c:if test="${empty sessionScope.warehouseProducts}">
 							<p id="NoInfo">No information found!</p>
 					</c:if>
 			</div>
@@ -79,9 +74,9 @@
 		        		<tr>
 		          			<td colspan="0" height="20" align="right">  
 		          			 	第<span id="pageNo">${sessionScope.opPageNo}</span>页 &nbsp;   				
-								<a href="javascript:void(0);" id="Index">首页</a>&nbsp;
-			      				<a href="javascript:void(0);" id="pageUp">上一页</a>&nbsp;
-			      				<a href="javascript:void(0);" id="pageDown">下一页</a>&nbsp; 
+								<a href="javascript:void(0);" id="Index1">首页</a>&nbsp;
+			      				<a href="javascript:void(0);" id="pageUp1">上一页</a>&nbsp;
+			      				<a href="javascript:void(0);" id="pageDown1">下一页</a>&nbsp; 
 			      				<a href="javascript:void(0);">尾页</a>&nbsp; 
 										&nbsp;
 							</td>
@@ -89,11 +84,13 @@
 		        	</tbody>
 		        </table>
 			</div>
+			
+			<div class="line"></div>
+		</c:if>
 		
-		<div class="line"></div>
 		
 			<div class="table_header">
-				<div class="search" align="right">
+				<div class="search hide" align="right">
 					<input placeholder="search order info" maxlength="16" id="fuzzy">
 					<button id="search">search</button>
 				</div>
@@ -102,10 +99,9 @@
 				</div>
 				<div class="table_opearter">
 				<c:if test="${flag == '0'}">
-					<p class="left" id="add">add</p>
 					<p class="left" id="save">save</p>
 				</c:if>
-				<p class="left" id="refresh">refresh</p>
+				<p class="left hide" id="refresh">refresh</p>
 				</div>
 			</div>
 			<div class="table_style">
@@ -137,7 +133,7 @@
 					</c:if>
 				</table>
 				<c:if test="${empty sessionScope.orderProducts}">
-							<p id="NoInfo">No information found!</p>
+							<p id="NoInfo1">No information found!</p>
 					</c:if>
 			</div>
 			<div class="pagenumber" align="right">
@@ -145,10 +141,10 @@
 		        	<tbody>
 		        		<tr>
 		          			<td colspan="0" height="20" align="right">  
-		          			 	第<span id="pageNo">${sessionScope.opPageNo}</span>页 &nbsp;   				
-								<a href="javascript:void(0);" id="Index">首页</a>&nbsp;
-			      				<a href="javascript:void(0);" id="pageUp">上一页</a>&nbsp;
-			      				<a href="javascript:void(0);" id="pageDown">下一页</a>&nbsp; 
+		          			 	第<span id="pageNo2">${sessionScope.oppPageNo}</span>页 &nbsp;   				
+								<a href="javascript:void(0);" id="Index2">首页</a>&nbsp;
+			      				<a href="javascript:void(0);" id="pageUp2">上一页</a>&nbsp;
+			      				<a href="javascript:void(0);" id="pageDown2">下一页</a>&nbsp; 
 			      				<a href="javascript:void(0);">尾页</a>&nbsp; 
 										&nbsp;
 							</td>
@@ -202,21 +198,13 @@
         			</li>
 				</ul>
 				<ul>
-					<li>name</li>
-					<li><input id="newName" name="newName" maxlength="16"></li>
-				</ul>
-				<ul>
-					<li>price</li>
-					<li><input id="newPrice" name="newPrice" maxlength="16"></li>
-				</ul>
-				<ul>
 					<li>count</li>
 					<li><input id="newCount" name="newCount" maxlength="16"></li>
 				</ul>
 				<ul>
 					<li id = "isNull" style="color: red;" class="hide">Information can't be empty!</li>
 					<li>
-						<button type="submit" id="OK">OK</button>
+						<button id="OK">OK</button>
 					</li>
 				</ul>
 			</form>
