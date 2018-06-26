@@ -350,10 +350,10 @@ public class DataProcess {
 		}
 		return false;
 	} 
-	public boolean ComfirmOrderInInfo(String orderInNo) {
-		Object[] parameter = new Object[] {orderInNo};
+	public boolean ComfirmOrderInInfo(String orderInNo,String warehouse) {
+		Object[] parameter = new Object[] {orderInNo,warehouse};
 
-		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_ComfirmOrderInInfo(?)", parameter);
+		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_ComfirmOrderInInfo(?,?)", parameter);
 		if (resultSet == null) {
 			return true;
 		}
@@ -417,26 +417,26 @@ public class DataProcess {
 		}
 		return false;
 	} 
-	public boolean ComfirmOrderOutInfo(String orderOutNo) {
-		Object[] parameter = new Object[] {orderOutNo};
+	public boolean ComfirmOrderOutInfo(String orderOutNo,String warehouse) {
+		Object[] parameter = new Object[] {orderOutNo,warehouse};
 
-		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_ComfirmOrderOutInfo(?)", parameter);
+		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_ComfirmOrderOutInfo(?,?)", parameter);
 		if (resultSet == null) {
 			return true;
 		}
 		return false;
 	}
 	
-	public void EditProductOutOrder(String orderNo,String pcode,
+	public void EditProductInOrder(String orderNo,String pcode,
 			String color,String size,String pcount ,String pname,String price) {
 		Object[] parameter = new Object[] {orderNo,pcode,color,size,pcount,pname,price};
 
-		dataAccess.DatabaseOperations("call Proc_EditProductOutOrder(?,?,?,?,?,?,?)", parameter);
+		dataAccess.DatabaseOperations("call Proc_EditProductInOrder(?,?,?,?,?,?,?)", parameter);
 	}
-	public ArrayList<OrderProduct> SearchAllProductOutOrder(String orderNo,String pageNo) {
+	public ArrayList<OrderProduct> SearchAllProductOrder(String orderNo,String pageNo) {
 		
 		Object[] parameter = new Object[] {orderNo,pageNo};
-		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_SearchAllProductOutOrder(?,?)", parameter);
+		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_SearchAllProductOrder(?,?)", parameter);
 		ArrayList<OrderProduct> orderProducts = new ArrayList<OrderProduct>();
 		try {
 			while (resultSet.next()) {
@@ -451,10 +451,10 @@ public class DataProcess {
 		return orderProducts;
 	}
 	
-	public ArrayList<OrderProduct> SearchProductOutOrderFuzzy(String orderNo,String fuzzyStr, String pageNo) {
+	public ArrayList<OrderProduct> SearchProductOrderFuzz(String orderNo,String fuzzyStr, String pageNo) {
 		
 		Object[] parameter = new Object[] {orderNo,fuzzyStr,pageNo};
-		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_SearchProductOutOrderFuzzy(?,?,?)", parameter);
+		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_SearchProductOrderFuzzy(?,?,?)", parameter);
 		ArrayList<OrderProduct> orderProducts = new ArrayList<OrderProduct>();
 		try {
 			while (resultSet.next()) {
@@ -469,10 +469,10 @@ public class DataProcess {
 		return orderProducts;
 	}
 	
-	public boolean DeleteProductOutOrder(String orderNo,String pcode,String color,String size) {
+	public boolean DeleteProductOrder(String orderNo,String pcode,String color,String size) {
 		Object[] parameter = new Object[] {orderNo,pcode,color,size};
 
-		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_DeleteProductOutOrder(?,?,?,?)", parameter);
+		ResultSet resultSet = dataAccess.DatabaseOperations("call Proc_DeleteProductOrder(?,?,?,?)", parameter);
 		if (resultSet == null) {
 			return true;
 		}

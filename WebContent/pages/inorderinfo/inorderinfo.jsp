@@ -10,7 +10,7 @@
 <link type="text/css" rel="stylesheet" href="../../mainjsp/main.css">
 <script src="../../jquerylib/jquery-3.3.1.min.js"></script>
 <script src="../../mainjsp/main.js"></script>
-<script src="outorderinfo.js"></script>
+<script src="inorderinfo.js"></script>
 </head>
 <body>
 <div class="top_menu">
@@ -22,76 +22,11 @@
 			<p>${sessionScope.admin}</p>
 			<p><a href="../../LogoutServlet">logout</a></p>
 		</c:if>
-		<p><a href="../../OutboundServlet">back</a></p>
+		<p><a href="../../InboundServlet">back</a></p>
 		</div>
 	</div>
 		<div class="main_panel">
 		<div class="user_manager">
-			<div class="table_header">
-				<div class="search" align="right">
-					<input placeholder="search order info" maxlength="16" id="fuzzy">
-					<button id="search">search</button>
-				</div>
-				<div class="table_info">
-				<p><strong>Warehouse product</strong></p>
-				</div>
-				<div class="table_opearter hide">
-				<c:if test="${flag == '0'}">
-					<p class="left" id="add">add</p>
-					<p class="left" id="save">save</p>
-				</c:if>
-				</div>
-			</div>
-			<div class="table_style">
-				<table>
-					<tr>
-						<th>number</th>
-						<th>name</th>
-						<th>admin</th>
-						<th>telephone</th>
-						<th>storage</th>
-						<th>operate</th>
-					</tr>
-					<c:if test="${not empty sessionScope.orderProducts}">
-					<c:forEach items="${sessionScope.orderProducts}" var="orderProduct">
-					<tr>
-						<td><input class="table_input" type="text" readonly value="${orderProduct.getOrderInDetailsCode()}"></td>
-						<td><input class="table_input" type="text" readonly value="${orderProduct.getOrderInDetailsColor()}"></td>
-						<td><input class="table_input" type="text" readonly value="${orderProduct.getOrderInDetailsSize()}"></td>
-						<td><input class="table_input" type="text" readonly value="${orderProduct.getOrderInDetailsCount()}"></td>
-						<c:if test="${flag == '0'}">
-						<td>
-						<a href="javascript:void(0);" class="edit">add</a>
-						<a class="hide" href="../../OutOrderInfoServlet?code=${orderProduct.getOrderInDetailsCode()}&color=${orderProduct.getOrderInDetailsColor()}&size=${orderProduct.getOrderInDetailsSize()}">delete</a>
-						</td>
-						</c:if>
-					</tr>
-					</c:forEach>
-					</c:if>
-				</table>
-				<c:if test="${empty sessionScope.orderProducts}">
-							<p id="NoInfo">No information found!</p>
-					</c:if>
-			</div>
-			<div class="pagenumber" align="right">
-				<table>
-		        	<tbody>
-		        		<tr>
-		          			<td colspan="0" height="20" align="right">  
-		          			 	第<span id="pageNo">${sessionScope.opPageNo}</span>页 &nbsp;   				
-								<a href="javascript:void(0);" id="Index">首页</a>&nbsp;
-			      				<a href="javascript:void(0);" id="pageUp">上一页</a>&nbsp;
-			      				<a href="javascript:void(0);" id="pageDown">下一页</a>&nbsp; 
-			      				<a href="javascript:void(0);">尾页</a>&nbsp; 
-										&nbsp;
-							</td>
-		          		</tr>
-		        	</tbody>
-		        </table>
-			</div>
-		
-		<div class="line"></div>
-		
 			<div class="table_header">
 				<div class="search" align="right">
 					<input placeholder="search order info" maxlength="16" id="fuzzy">
@@ -129,7 +64,7 @@
 						<c:if test="${flag == '0'}">
 						<td>
 						<a href="javascript:void(0);" class="edit">edit</a>
-						<a href="../../OutOrderInfoServlet?code=${orderProduct.getOrderInDetailsCode()}&color=${orderProduct.getOrderInDetailsColor()}&size=${orderProduct.getOrderInDetailsSize()}">delete</a>
+						<a href="../../InOrderInfoServlet?code=${orderProduct.getOrderInDetailsCode()}&color=${orderProduct.getOrderInDetailsColor()}&size=${orderProduct.getOrderInDetailsSize()}">delete</a>
 						</td>
 						</c:if>
 					</tr>
@@ -161,7 +96,7 @@
 	<div class="cover hide">
 		<div class="input_message_box">
 			<div class="close"><img id="close" src="../../images/close.png"></div>
-			<form method="post" action="../../OutOrderInfoServlet">
+			<form method="post" action="../../InOrderInfoServlet">
 				<ul>
 					<li>
 						<b style="font-size: 28px;">Order detail info</b>

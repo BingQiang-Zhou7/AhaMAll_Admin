@@ -12,6 +12,10 @@ div,p,ul,table,th,td{
 /*	border: 1px solid DarkOrchid;*/
 }
 
+a{
+	color: black;
+}
+
 ul{
 	list-style:none;
 }
@@ -36,4 +40,10 @@ input,select{
 .main_panel
 {
 	
+}
+.line
+{
+	height:2px;
+	background-color: silver;
+	margin: 20px 0;
 }

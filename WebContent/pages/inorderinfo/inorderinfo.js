@@ -8,11 +8,13 @@ $(document).ready(
 			function()
 			{
 				$(".cover").removeClass("hide");
-				$("#newNo").val("auto generate");
-				$("#newWarehouse").val("");
-				$("#newFrom").val("");
-				
-				getWarehouseInfo();
+				$("#newCount").val("");
+				$("#newSize").val("");
+				$("#newColor").val("");
+				$("#newCode").val("");
+				$("#newSize").removeAttr("disabled");
+				$("#newColor").removeAttr("disabled");
+				$("#newCode").removeAttr("disabled");
 			}
 		);
 		$(".edit").click(
@@ -20,16 +22,20 @@ $(document).ready(
 				{
 					$(".cover").removeClass("hide");
 					//alert("123");
-					var from = $(this).parent().prev().children();
+					var count = $(this).parent().prev().children();
 					//alert(description.val());
-					$("#newFrom").val(from.val());
-					var warehouse = from.parent().prev().children();
+					$("#newCount").val(count.val());
+					var size = count.parent().prev().children();
 					//alert(password.val());
-					$("#newWarehouse").val(warehouse.val());
-					var no = warehouse.parent().prev().prev().prev().children();
-					$("#newNo").val(no.text());
-				
-					getWarehouseInfo();
+					$("#newSize").val(size.val());
+					var color = size.parent().prev().children();
+					//alert(password.val());
+					$("#newColor").val(color.val());
+					var code = color.parent().prev().children();
+					$("#newCode").val(code.val());
+					$("#newSize").attr("disabled","disable");
+					$("#newColor").attr("disabled","disable");
+					$("#newCode").attr("disabled","disable");
 				}
 			);
 		$("#close").click(
@@ -42,44 +48,52 @@ $(document).ready(
 				function()
 				{
 					var fuzzy = $("#fuzzy").val();
-					alert(fuzzy);
+					//alert(fuzzy);
 //					if(window.location.search === " " && fuzzy.length > 0)
 //						{
 //							alert(window.location.href);
 //							
 //						}
-					window.location.href = "../../InboundServlet?fuzzyStr="+fuzzy;
+					window.location.href = "../../InOrderInfoServlet?fuzzyStr="+fuzzy;
+					//location.reload();
+				}
+			);
+		$("#save").click(
+				function()
+				{
+					window.location.href = "../../InOrderInfoServlet?op=save";
 					//location.reload();
 				}
 			);
 		$("#refresh").click(
 				function()
 				{
-					window.location.href = "../../InboundServlet";
+					window.location.href = "../../InOrderInfoServlet";
+					//location.reload();
 				}
 			);
-		$("#newCode").blur(
-			function()
-			{
-				$("#AccountTip").addClass("hide");
-				var code = $("#newCode").val();
-				if(code !== null)
-					{
-						var url = "../../CheckInfo?type=product&product="+code;
-						//alert(url);
-						ajaxGetResponeText("post",url,false);
-						var text = $("#tempVar").text();
-						//alert(text);
-						if(text === "true")
-							{
-								$("#AccountTip").removeClass("hide");
-							}else {
-								$("#AccountTip").addClass("hide");
-							}
-						//$("#tempVar").text("");
-					}
-			}
-		);
+//		$("#newCode").blur(
+//			function()
+//			{
+//				$("#AccountTip").addClass("hide");
+//				var code = $("#newCode").val();
+//				if(code !== null)
+//					{
+//						var url = "../../CheckInfo?type=product&product="+code;
+//						//alert(url);
+//						ajaxGetResponeText("post",url,false);
+//						var text = $("#tempVar").text();
+//						//alert(text);
+//						if(text === "true")
+//							{
+//								$("#AccountTip").removeClass("hide");
+//							}else {
+//								$("#AccountTip").addClass("hide");
+//							}
+//						//$("#tempVar").text("");
+//					}
+//			}
+//		);
 		$("#OK").click(
 			function()
 			{
@@ -94,7 +108,9 @@ $(document).ready(
 						$("#isNull").removeClass("hide");
 						return false;
 					}
-				$("#newNo").removeAttr("disabled");
+				$("#newSize").removeAttr("disabled");
+				$("#newColor").removeAttr("disabled");
+				$("#newCode").removeAttr("disabled");
 				//alert("null");
 			}
 		);
@@ -110,11 +126,11 @@ $(document).ready(
 					var pageUrl;
 					if(location.search !== "")
 						{
-							pageUrl = "../../InboundServlet?"+location.search+"&pageNo=0";
+							pageUrl = "../../InOrderInfoServlet?"+location.search+"&pageNo=0";
 						}
 					else
 						{
-							pageUrl = "../../InboundServlet?pageNo=0";
+							pageUrl = "../../InOrderInfoServlet?pageNo=0";
 						}
 					 $.ajax({ 
 				        url:pageUrl,//servlet path
@@ -146,11 +162,11 @@ $(document).ready(
 					var pageUrl;
 					if(location.search !== "")
 						{
-							pageUrl = "../../InboundServlet?"+location.search+"&pageNo="+pageNo;
+							pageUrl = "../../InOrderInfoServlet?"+location.search+"&pageNo="+pageNo;
 						}
 					else
 						{
-							pageUrl = "../../InboundServlet?pageNo="+pageNo;
+							pageUrl = "../../InOrderInfoServlet?pageNo="+pageNo;
 						}
 					 $.ajax({ 
 				        url:pageUrl,//servlet path
@@ -176,11 +192,11 @@ $(document).ready(
 					var pageUrl;
 					if(location.search !== "")
 						{
-							pageUrl = "../../InboundServlet?"+location.search+"&pageNo="+pageNo;
+							pageUrl = "../../InOrderInfoServlet?"+location.search+"&pageNo="+pageNo;
 						}
 					else
 						{
-							pageUrl = "../../InboundServlet?pageNo="+pageNo;
+							pageUrl = "../../InOrderInfoServlet?pageNo="+pageNo;
 						}
 					 $.ajax({ 
 				        url:pageUrl,//servlet path
@@ -196,18 +212,18 @@ $(document).ready(
 			);
 	}
 );
-function getWarehouseInfo() {
-	$("option").remove(".child");
-	
-	var url = "../../RequestInfo?type=in";
-	//alert(url);
-	ajaxGetResponeText("post",url,false);
-	var text = $("#tempVar").text();
-	var strs = text.split('_');
-	for (var i = 0; i < strs.length-1; i++)
-		{
-			var sign = "<option class=\"child\" value=\""+strs[i]+"\">"+strs[i]+"</option>";
-			$("#newWarehouse").append(sign);
-		}
-	$("#tempVar").text("");
-}
+//function getWarehouseInfo() {
+//	$("option").remove(".child");
+//	
+//	var url = "../../RequestInfo?type=in";
+//	//alert(url);
+//	ajaxGetResponeText("post",url,false);
+//	var text = $("#tempVar").text();
+//	var strs = text.split('_');
+//	for (var i = 0; i < strs.length-1; i++)
+//		{
+//			var sign = "<option class=\"child\" value=\""+strs[i]+"\">"+strs[i]+"</option>";
+//			$("#newWarehouse").append(sign);
+//		}
+//	$("#tempVar").text("");
+//}

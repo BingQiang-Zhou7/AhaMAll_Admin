@@ -15,14 +15,14 @@ import zhou.db.DataProcess;
 /**
  * Servlet implementation class OrderInfoServlet
  */
-@WebServlet("/OutOrderInfoServlet")
-public class OutOrderInfoServlet extends HttpServlet {
+@WebServlet("/InOrderInfoServlet")
+public class InOrderInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public OutOrderInfoServlet() {
+    public InOrderInfoServlet() {
         super();
     }
 
@@ -35,7 +35,7 @@ public class OutOrderInfoServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		//PrintWriter out = response.getWriter();
 		System.out.println("------------------------------------------------");
-		System.out.println("In Here: OutOrderInfoServlet");
+		System.out.println("In Here: InOrderInfoServlet");
 
 		System.out.println(request.getQueryString());
 		
@@ -46,13 +46,13 @@ public class OutOrderInfoServlet extends HttpServlet {
 		SearchOrderOutInfo(request);
 		
 		if (ComfirmOrderOutInfo( request , response)) {
-			System.out.println("Go Here: OutboundServlet");
+			System.out.println("Go Here: InboundServlet");
 			System.out.println("------------------------------------------------");
-			response.sendRedirect("OutboundServlet");
+			response.sendRedirect("InboundServlet");
 		}else {
-			System.out.println("Go Here: pages/outorderinfo/outorderinfo.jsp");
+			System.out.println("Go Here: pages/inorderinfo/inorderinfo.jsp");
 			System.out.println("------------------------------------------------");
-			response.sendRedirect("pages/outorderinfo/outorderinfo.jsp");
+			response.sendRedirect("pages/inorderinfo/inorderinfo.jsp");
 		}
 	}
 

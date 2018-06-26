@@ -31,7 +31,7 @@ $(document).ready(
 					//alert(password.val());
 					$("#newWarehouse").val(warehouse.val());
 					var no = warehouse.parent().prev().prev().prev().children();
-					$("#newNo").val(no.val());
+					$("#newNo").val(no.text());
 				
 					getWarehouseInfo();
 				}
