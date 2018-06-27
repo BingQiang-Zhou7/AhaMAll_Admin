@@ -288,7 +288,7 @@ $(document).ready(
 				$("#pageDown2").click(
 					function()
 					{
-						if($("#NoInfo1")[0])
+						if($("#NoInfoProducts")[0])
 						{
 							return;
 						}

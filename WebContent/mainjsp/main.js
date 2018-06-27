@@ -1,4 +1,7 @@
 // JavaScript Document
+
+var clientX;
+var clientY;
 $(document).ready(
 	function()
 	{
@@ -19,6 +22,26 @@ $(document).ready(
 					}
 			}
 		);
+		
+		
+//		$(window).unload(
+//			function()
+//			{
+//				alert("1111 call success!");
+//				if(event.clientY < 0)
+//					{
+//						 $.ajax({ 
+//								url:"../../ClearSession",//servlet path
+//								type:"POST",
+//								async:false,
+//								success:function(){ 
+//								   alert("call success!");
+//									//console.log(pageUrl+" call success!");
+//									//location.reload();
+//								}  
+//							});
+//					}
+//			});
 //		$("a").click(
 //			function()
 //			{
@@ -40,6 +63,14 @@ $(document).ready(
 //		);	
 	}
 );
+
+
+$(window).on('clickd',function()
+			{
+	"use strict";
+	clientX = event.clientX;
+	clientY = event.clientY;
+});
 
 $(window).on('load', function () {
 	"use strict";
@@ -63,6 +94,21 @@ $(window).on('load', function () {
 		}
 	);
 });
+//
+//$(window).bind('onbeforeunload', function () {
+//	"use strict";
+//	alert(clientY);
+//		if(clientY < 0)
+//		{
+//			alert(clientY);
+//			console.log("hello");
+//		}
+////	if(window.event.clientY < 0)
+////		{ss
+////			return "exit";	
+////		}
+//});
+
 
 //function load(pageUrl) { 
 //	"use strict";

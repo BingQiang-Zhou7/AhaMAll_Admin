@@ -37,7 +37,7 @@ public class OutOrderInfoServlet extends HttpServlet {
 		System.out.println("------------------------------------------------");
 		System.out.println("In Here: OutOrderInfoServlet");
 
-		System.out.println(request.getQueryString());
+//		System.out.println(request.getQueryString());
 		
 		DeleteOrderInInfo(request);
 		
@@ -118,32 +118,35 @@ public class OutOrderInfoServlet extends HttpServlet {
 				//System.out.println(pageNo2);
 				int page = Integer.parseInt(pageNo2);
 				pageNo2 = String.valueOf(page-1);
-				request.getSession().setAttribute("oppPageNo",page);
 			}
 		}
 		else {
-			int page = (Integer.parseInt(pageNo2)+1);
-			request.getSession().setAttribute("oppPageNo",page);
+			int page = (Integer.parseInt(pageNo2));
+			request.getSession().setAttribute("oppPageNo",String.valueOf(page+1));
+			
 			//System.out.println("111");
 		}
 		
 		if (pageNo == null) {
 			if (request.getSession().getAttribute("opPageNo") == null) {
 				pageNo = "0";
+				request.getSession().removeAttribute("opPageNo");
 				request.getSession().setAttribute("opPageNo","1");
 			}
 			else {
 				pageNo = String.valueOf(request.getSession().getAttribute("opPageNo"));
 				int page = Integer.parseInt(pageNo);
 				pageNo = String.valueOf(page-1);
-				request.getSession().setAttribute("opPageNo",page);
 			}
 		}
 		else {
-			int page = (Integer.parseInt(pageNo)+1);
-			request.getSession().setAttribute("opPageNo",page);
+			int page = (Integer.parseInt(pageNo));
+			request.getSession().setAttribute("opPageNo",String.valueOf(page+1));
+			//pageNo = String.valueOf(page-1);
 		}
 		
+//		System.out.println(pageNo+"\t"+pageNo2);
+		 
 		ArrayList<OrderProduct> orderProducts = new DataProcess("backstage").SearchAllProductOrder(orderNo, pageNo2);
 		System.out.println("Do It: SearchAllProductOrder");
 		
@@ -158,21 +161,26 @@ public class OutOrderInfoServlet extends HttpServlet {
 			System.out.println("Do It: CheckWarehouseProductFuzzy");
 		}
 		
+//		boolean willReturn = false;
 		
 		if (orderProducts == null || orderProducts.size() == 0) {
 			request.getSession().removeAttribute("orderProducts");
-			return;
+//			willReturn = true;
+		}
+		else {
+			request.getSession().setAttribute("orderProducts", orderProducts);
 		}
 		
 		if (warehouseProducts == null || warehouseProducts.size() == 0) {
 			request.getSession().removeAttribute("warehouseProducts");
-			return;
+//			willReturn = true;
+		}else {
+			request.getSession().setAttribute("warehouseProducts", warehouseProducts);
 		}
 		
-		request.getSession().removeAttribute("orderProducts");
-		request.getSession().setAttribute("orderProducts", orderProducts);
-		request.getSession().removeAttribute("warehouseProducts");
-		request.getSession().setAttribute("warehouseProducts", warehouseProducts);
+//		if (willReturn == true) {
+//			return ;
+//		}
 	}
 
 	boolean ComfirmOrderOutInfo(HttpServletRequest request ,HttpServletResponse response)

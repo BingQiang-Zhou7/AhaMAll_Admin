@@ -133,7 +133,7 @@
 					</c:if>
 				</table>
 				<c:if test="${empty sessionScope.orderProducts}">
-							<p id="NoInfo1">No information found!</p>
+							<p id="NoInfoProducts">No information found!</p>
 					</c:if>
 			</div>
 			<div class="pagenumber" align="right">

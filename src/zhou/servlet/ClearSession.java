@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class LogoutServlet
+ * Servlet implementation class ClearSession
  */
-@WebServlet("/LogoutServlet")
-public class LogoutServlet extends HttpServlet {
+@WebServlet("/ClearSession")
+public class ClearSession extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LogoutServlet() {
+    public ClearSession() {
         super();
     }
 
@@ -27,7 +27,10 @@ public class LogoutServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
 		request.getSession().invalidate();
-		response.sendRedirect("pages/login/login.html");
+		System.out.println("------------------------------------------------");
+		System.out.println("In Here: ClearSession");
+		System.out.println("Do It: ClearSession");
+		System.out.println("------------------------------------------------");
 	}
 
 	/**
