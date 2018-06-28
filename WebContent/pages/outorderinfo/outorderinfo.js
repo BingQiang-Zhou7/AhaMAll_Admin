@@ -12,6 +12,7 @@ $(document).ready(
 				var count = $(this).parent().prev().children();
 				//alert(description.val());
 				$("#newCount").val(count.val());
+				$("#newCount").attr("max",count.val());
 				var size = count.parent().prev().children();
 				//alert(password.val());
 				$("#newSize").val(size.val());
@@ -31,6 +32,8 @@ $(document).ready(
 					$(".cover").removeClass("hide");
 					//alert("123");
 					var count = $(this).parent().prev().children();
+					//count.removeAttr("readonly");
+					//$(this).text("confirm");
 					//alert(description.val());
 					$("#newCount").val(count.val());
 					var size = count.parent().prev().children();
@@ -115,6 +118,14 @@ $(document).ready(
 						//alert("null");
 						$("#isNull").removeClass("hide");
 						return false;
+					}
+				//alert($("#newCount").attr("max"));
+				if($("#newCount").attr("max") !== null)
+					{
+						if ($("#newCount").attr("max") < $("#newCount").val()) {
+							//alert($("#newCount").attr("max"));
+							return false;
+						}
 					}
 				$("#newSize").removeAttr("disabled");
 				$("#newColor").removeAttr("disabled");

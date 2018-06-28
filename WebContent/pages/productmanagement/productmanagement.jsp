@@ -17,7 +17,7 @@
 		<div class="user_manager">
 			<div class="table_header">
 				<div class="search" align="right">
-					<input placeholder="search user info" maxlength="16" id="fuzzy">
+					<input placeholder="search info" maxlength="16" id="fuzzy">
 					<button id="search">search</button>
 				</div>
 				<div class="table_info">
@@ -36,7 +36,7 @@
 						<th>color</th>
 						<th>size</th>
 						<th>price</th>
-						<th>operate</th>
+						<th>operation</th>
 					</tr>
 					<c:if test="${not empty sessionScope.products}">
 					<c:forEach items="${sessionScope.products}" var="product">

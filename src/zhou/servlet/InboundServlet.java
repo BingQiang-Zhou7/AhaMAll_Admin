@@ -33,6 +33,13 @@ public class InboundServlet extends HttpServlet {
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
+		
+		
+		if (request.getSession().getAttribute("admin") == null) {
+			response.sendRedirect("pages/login/login.html");
+			return;
+		}
+		
 		//PrintWriter out = response.getWriter();
 		System.out.println("------------------------------------------------");
 		System.out.println("In Here: InboundServlet");

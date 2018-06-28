@@ -37,6 +37,11 @@ public class OutOrderInfoServlet extends HttpServlet {
 		System.out.println("------------------------------------------------");
 		System.out.println("In Here: OutOrderInfoServlet");
 
+		if (request.getSession().getAttribute("admin") == null) {
+			response.sendRedirect("pages/login/login.html");
+			return;
+		}
+		
 //		System.out.println(request.getQueryString());
 		
 		DeleteOrderInInfo(request);

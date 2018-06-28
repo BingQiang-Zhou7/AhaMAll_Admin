@@ -34,6 +34,12 @@ public class OutboundServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		//PrintWriter out = response.getWriter();
+		
+		if (request.getSession().getAttribute("admin") == null) {
+			response.sendRedirect("pages/login/login.html");
+			return;
+		}
+		
 		System.out.println("------------------------------------------------");
 		System.out.println("In Here: OutboundServlet");
 		

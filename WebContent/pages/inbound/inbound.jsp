@@ -17,7 +17,7 @@
 		<div class="user_manager">
 			<div class="table_header">
 				<div class="search" align="right">
-					<input placeholder="search order info" maxlength="16" id="fuzzy">
+					<input placeholder="search info" maxlength="16" id="fuzzy">
 					<button id="search">search</button>
 				</div>
 				<div class="table_info">
@@ -36,7 +36,7 @@
 						<th>admin</th>
 						<th>warehouse</th>
 						<th>from</th>
-						<th>operate</th>
+						<th>operation</th>
 					</tr>
 					<c:if test="${not empty sessionScope.orderIns}">
 					<c:forEach items="${sessionScope.orderIns}" var="orderIn">

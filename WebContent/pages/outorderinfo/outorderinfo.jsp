@@ -30,7 +30,7 @@
 		<c:if test="${flag == '0'}">
 			<div class="table_header">
 				<div class="search" align="right">
-					<input placeholder="search order info" maxlength="16" id="fuzzy">
+					<input placeholder="search info" maxlength="16" id="fuzzy">
 					<button id="search">search</button>
 				</div>
 				<div class="table_info">
@@ -47,7 +47,7 @@
 						<th>color</th>
 						<th>size</th>
 						<th>count</th>
-						<th>operate</th>
+						<th>operation</th>
 					</tr>
 					<c:if test="${not empty sessionScope.warehouseProducts}">
 					<c:forEach items="${sessionScope.warehouseProducts}" var="warehouseProduct">
@@ -112,7 +112,7 @@
 						<th>size</th>
 						<th>count</th>
 						<c:if test="${flag == '0'}">
-						<th>operate</th>
+						<th>operation</th>
 						</c:if>
 					</tr>
 					<c:if test="${not empty sessionScope.orderProducts}">
@@ -199,7 +199,7 @@
 				</ul>
 				<ul>
 					<li>count</li>
-					<li><input id="newCount" name="newCount" maxlength="16"></li>
+					<li><input type="number" id="newCount" name="newCount" step="1" min="1"></li>
 				</ul>
 				<ul>
 					<li id = "isNull" style="color: red;" class="hide">Information can't be empty!</li>
