@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=GB18030"
-    pageEncoding="GB18030"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=GB18030">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Warehouse Management</title>
 <link type="text/css" rel="stylesheet" href="../../maincss/main.css">
 <link type="text/css" rel="stylesheet" href="../../mainjsp/main.css">
@@ -63,11 +63,11 @@
 		        	<tbody>
 		        		<tr>
 		          			<td colspan="0" height="20" align="right">  
-		          			 	��<span id="pageNo">${sessionScope.wPageNo}</span>ҳ &nbsp;   				
-								<a href="javascript:void(0);" id="Index">��ҳ</a>&nbsp;
-			      				<a href="javascript:void(0);" id="pageUp">��һҳ</a>&nbsp;
-			      				<a href="javascript:void(0);" id="pageDown">��һҳ</a>&nbsp; 
-			      				<a href="javascript:void(0);">βҳ</a>&nbsp; 
+		          			 	第<span id="pageNo">${sessionScope.wPageNo}</span>页 &nbsp;   				
+								<a href="javascript:void(0);" id="Index">首页</a>&nbsp;
+			      				<a href="javascript:void(0);" id="pageUp">上一页</a>&nbsp;
+			      				<a href="javascript:void(0);" id="pageDown">下一页</a>&nbsp; 
+			      				<a href="javascript:void(0);">尾页</a>&nbsp; 
 										&nbsp;
 							</td>
 		          		</tr>
