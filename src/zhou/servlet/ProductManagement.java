@@ -68,10 +68,11 @@ public class ProductManagement extends HttpServlet {
 		String clothingSize = request.getParameter("newSize");
 		String clothingName = request.getParameter("newName");
 		String clothingPrice = request.getParameter("newPrice");
+		String clothingCount = request.getParameter("newCount");
 		if (clothingCode != null && clothingColor != null && clothingSize != null 
 				&& clothingName != null && clothingPrice != null) {
 			new DataProcess("backstage").EditProductInfo(clothingCode, clothingColor, 
-					clothingSize, clothingName, clothingPrice);
+					clothingSize, clothingName, clothingPrice,clothingCount);
 			System.out.println("Do It: EditUserInfo");
 		}
 	}

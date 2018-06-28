@@ -43,7 +43,7 @@ public class UserManagement extends HttpServlet {
 			response.sendRedirect("pages/login/login.html");
 			return;
 		}
-		
+//		
 		System.out.println("------------------------------------------------");
 		System.out.println("In Here: UserManagementServlet");
 		

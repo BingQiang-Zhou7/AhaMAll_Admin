@@ -169,7 +169,7 @@ public class DataProcess {
 					products.add(new Product(resultSet.getString("ClothingCode"), resultSet.getString("ClothingColor"),
 							resultSet.getString("ClothingSize"),resultSet.getString("ClothingName"),
 							resultSet.getString("ClothingOuterM"),resultSet.getString("ClothingInnerM"), 
-							resultSet.getString("ClothingPrice"), resultSet.getString("ClothingFlag")));
+							resultSet.getString("ClothingPrice"), resultSet.getString("ClothingFlag"),resultSet.getString("ClothingCount")));
 					//System.out.println("heloo");
 				}
 			} catch (SQLException e) {
@@ -190,7 +190,7 @@ public class DataProcess {
 				products.add(new Product(resultSet.getString("ClothingCode"), resultSet.getString("ClothingColor"),
 						resultSet.getString("ClothingSize"),resultSet.getString("ClothingName"),
 						resultSet.getString("ClothingOuterM"),resultSet.getString("ClothingInnerM"), 
-						resultSet.getString("ClothingPrice"), resultSet.getString("ClothingFlag")));
+						resultSet.getString("ClothingPrice"), resultSet.getString("ClothingFlag"),resultSet.getString("ClothingCount")));
 				//System.out.println("heloo");
 			}
 		} catch (SQLException e) {
@@ -202,10 +202,10 @@ public class DataProcess {
 	}
 	
 	public void EditProductInfo(String clothingCode,String clothingColor,String clothingSize,
-			String clothingName,String clothingPrice) {
-		Object[] parameter = new Object[] {clothingCode,clothingColor,clothingSize,clothingName,clothingPrice};
+			String clothingName,String clothingPrice,String clothingCount) {
+		Object[] parameter = new Object[] {clothingCode,clothingColor,clothingSize,clothingName,clothingPrice,clothingCount};
 
-		dataAccess.DatabaseOperations("call Proc_EditProductInfo(?,?,?,?,?)", parameter);
+		dataAccess.DatabaseOperations("call Proc_EditProductInfo(?,?,?,?,?,?)", parameter);
 	}
 	
 	

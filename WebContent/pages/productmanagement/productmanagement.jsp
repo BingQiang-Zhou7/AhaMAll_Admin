@@ -36,6 +36,7 @@
 						<th>color</th>
 						<th>size</th>
 						<th>price</th>
+						<th>count</th>
 						<th>operation</th>
 					</tr>
 					<c:if test="${not empty sessionScope.products}">
@@ -46,6 +47,7 @@
 						<td><input class="table_input" type="text" readonly value="${product.getClothingColor()}"></td>
 						<td><input class="table_input" type="text" readonly value="${product.getClothingSize()}"></td>
 						<td><input class="table_input" type="text" readonly value="${product.getClothingPrice()}"></td>
+						<td><input class="table_input" type="text" readonly value="${product.getClothingCount()}"></td>
 						<td>
 						<a href="javascript:void(0);" class="edit">edit</a>
 						<a href="../../ProductManagement?code=${product.getClothingCode()}">delete</a>

@@ -9,9 +9,11 @@ public class Product {
 	String ClothingInnerM;
 	String ClothingPrice;
 	String ClothingFlag;
+	String ClothingCount;
 	
 	public Product(String clothingCode, String clothingColor, String clothingSize, String clothingName,
-			String clothingOuterM, String clothingInnerM, String clothingPrice, String clothingFlag) {
+			String clothingOuterM, String clothingInnerM, String clothingPrice, String clothingFlag,
+			String clothingCount) {
 		super();
 		ClothingCode = clothingCode;
 		ClothingColor = clothingColor;
@@ -21,8 +23,14 @@ public class Product {
 		ClothingInnerM = clothingInnerM;
 		ClothingPrice = clothingPrice;
 		ClothingFlag = clothingFlag;
+		ClothingCount = clothingCount;
 	}
-	
+	public String getClothingCount() {
+		return ClothingCount;
+	}
+	public void setClothingCount(String clothingCount) {
+		ClothingCount = clothingCount;
+	}
 	public String getClothingCode() {
 		return ClothingCode;
 	}
