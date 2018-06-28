@@ -46,10 +46,12 @@
 						<td><input class="table_input" type="text" readonly value="${orderIn.getOrderinPerson()}"></td>
 						<td><input class="table_input" type="text" readonly value="${orderIn.getOrderInWarehouse()}"></td>
 						<td><textarea rows="1" cols="21" maxlength="128" readonly style="height: 20px;">${orderIn.getOrderInBefrom()}</textarea></td>
+						<c:if test="${orderIn.getOrderOutFlag() == '0'}">
 						<td>
 						<a href="javascript:void(0);" class="edit">edit</a>
-						<a href="../../InboundServlet?OrderInNo=${orderIn.getOrderInNo()}">delete</a>
+						<a href="../../InboundServlet?OrderInNo=${orderIn.getOrderInFlag()}">delete</a>
 						</td>
+						</c:if>
 					</tr>
 					</c:forEach>
 					</c:if>

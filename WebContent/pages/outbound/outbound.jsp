@@ -49,8 +49,10 @@
 						<td><input class="table_input" type="text" readonly value="${orderOut.getOrderOutRperson()}"></td>
 						<td><input class="table_input" type="text" readonly value="${orderOut.getOrderOutTel()}"></td>
 						<td>
+						<c:if test="${orderOut.getOrderOutFlag() == '0'}">
 						<a href="javascript:void(0);" class="edit">edit</a>
 						<a href="../../OutboundServlet?orderOutNo=${orderOut.getOrderOutNo()}">delete</a>
+						</c:if>
 						</td>
 					</tr>
 					</c:forEach>
