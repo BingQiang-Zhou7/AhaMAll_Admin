@@ -11,7 +11,7 @@
  Target Server Version : 80011
  File Encoding         : 65001
 
- Date: 26/06/2018 22:18:00
+ Date: 29/06/2018 08:35:33
 */
 
 SET NAMES utf8mb4;
@@ -30,6 +30,7 @@ CREATE TABLE `t_clothings`  (
   `ClothingInnerM` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '里料',
   `ClothingPrice` float(10, 2) NULL DEFAULT NULL COMMENT '成本价',
   `ClothingFlag` tinyint(255) NULL DEFAULT 0 COMMENT '删除状 默认为0',
+  `ClothingCount` int(255) NULL DEFAULT 0 COMMENT '数量默认为0',
   PRIMARY KEY (`ClothingCode`, `ClothingColor`, `ClothingSize`) USING BTREE,
   INDEX `ClothingCode`(`ClothingCode`) USING BTREE,
   INDEX `ClothingColor`(`ClothingColor`) USING BTREE,
@@ -51,12 +52,16 @@ CREATE TABLE `t_clothings`  (
 -- ----------------------------
 -- Records of t_clothings
 -- ----------------------------
-INSERT INTO `t_clothings` VALUES ('0', '0', '0', '0', '0', '0', 0.00, 0);
-INSERT INTO `t_clothings` VALUES ('1', '1', '1', '1', NULL, NULL, 1.00, 0);
-INSERT INTO `t_clothings` VALUES ('11', 'Cyan', '165', '11', NULL, NULL, 11.00, 0);
-INSERT INTO `t_clothings` VALUES ('111', 'Yellow', '170', '222', NULL, NULL, 222.00, 0);
-INSERT INTO `t_clothings` VALUES ('13', 'Orange', '170', '2', NULL, NULL, 100.00, 0);
-INSERT INTO `t_clothings` VALUES ('22', 'Green', '170', '2', NULL, NULL, 222.00, 0);
+INSERT INTO `t_clothings` VALUES ('0', '0', '0', '0', '0', '0', 0.00, 0, 0);
+INSERT INTO `t_clothings` VALUES ('1', '1', '1', '1', NULL, NULL, 1.00, 0, 0);
+INSERT INTO `t_clothings` VALUES ('11', 'Cyan', '165', '11', NULL, NULL, 11.00, 0, 0);
+INSERT INTO `t_clothings` VALUES ('111', 'Yellow', '170', '222', NULL, NULL, 222.00, 0, 0);
+INSERT INTO `t_clothings` VALUES ('13', 'Orange', '170', '2', NULL, NULL, 100.00, 0, 0);
+INSERT INTO `t_clothings` VALUES ('22', 'Green', '170', '2', NULL, NULL, 222.00, 0, 0);
+INSERT INTO `t_clothings` VALUES ('P001', 'Cyan', '170', 'P001cyan179', NULL, NULL, 12.34, 0, 15);
+INSERT INTO `t_clothings` VALUES ('P0010', 'Green', '170', 'P0010Green170', NULL, NULL, 12.34, 0, 8);
+INSERT INTO `t_clothings` VALUES ('P002', 'Yellow', '170', 'P002Yellow170', NULL, NULL, 170.00, 0, 222);
+INSERT INTO `t_clothings` VALUES ('P003', 'Yellow', '160', '333', NULL, NULL, 333.00, 0, 666);
 
 -- ----------------------------
 -- Table structure for t_orderdetails
@@ -71,10 +76,7 @@ CREATE TABLE `t_orderdetails`  (
   PRIMARY KEY (`OrderInDetailsOrderNo`, `OrderInDetailsCode`, `OrderInDetailsColor`, `OrderInDetailsSize`) USING BTREE,
   INDEX `OrderInDetailsCode`(`OrderInDetailsCode`) USING BTREE,
   INDEX `OrderInDetailsColor`(`OrderInDetailsColor`) USING BTREE,
-  INDEX `OrderInDetailsSize`(`OrderInDetailsSize`) USING BTREE,
-  CONSTRAINT `t_orderdetails_ibfk_2` FOREIGN KEY (`OrderInDetailsCode`) REFERENCES `t_clothings` (`clothingcode`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `t_orderdetails_ibfk_3` FOREIGN KEY (`OrderInDetailsColor`) REFERENCES `t_clothings` (`clothingcolor`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `t_orderdetails_ibfk_4` FOREIGN KEY (`OrderInDetailsSize`) REFERENCES `t_clothings` (`clothingsize`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  INDEX `OrderInDetailsSize`(`OrderInDetailsSize`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -82,8 +84,21 @@ CREATE TABLE `t_orderdetails`  (
 -- ----------------------------
 INSERT INTO `t_orderdetails` VALUES ('10', '11', 'Cyan', '165', 11);
 INSERT INTO `t_orderdetails` VALUES ('10', '111', 'Yellow', '170', 222);
-INSERT INTO `t_orderdetails` VALUES ('2', '0', '1', '1', 22);
-INSERT INTO `t_orderdetails` VALUES ('2', '1', '1', '1', 1);
+INSERT INTO `t_orderdetails` VALUES ('2', '11', 'Cyan', '165', 10);
+INSERT INTO `t_orderdetails` VALUES ('2', '111', 'Yellow', '170', 111);
+INSERT INTO `t_orderdetails` VALUES ('I1530175150697', 'P001', 'Green', '180', 111);
+INSERT INTO `t_orderdetails` VALUES ('I1530175150697', 'P002', 'Orange', '170', 111);
+INSERT INTO `t_orderdetails` VALUES ('I1530175364036', 'P001', 'Cyan', '170', 28);
+INSERT INTO `t_orderdetails` VALUES ('I1530175364036', 'P0010', 'Green', '170', 29);
+INSERT INTO `t_orderdetails` VALUES ('I1530175461396', 'P001', 'Cyan', '170', 111);
+INSERT INTO `t_orderdetails` VALUES ('I1530175461396', 'P002', 'Red', '160', 111);
+INSERT INTO `t_orderdetails` VALUES ('In1529927585524', 'P001', 'Yellow', '170', 111);
+INSERT INTO `t_orderdetails` VALUES ('In1529927585524', 'P003', 'Yellow', '160', 333);
+INSERT INTO `t_orderdetails` VALUES ('O1530175297488', '11', 'Cyan', '165', 1);
+INSERT INTO `t_orderdetails` VALUES ('O1530175297488', '111', 'Yellow', '170', 1);
+INSERT INTO `t_orderdetails` VALUES ('O1530175818936', 'P001', 'Cyan', '170', 11);
+INSERT INTO `t_orderdetails` VALUES ('O1530178989315', 'P001', 'Cyan', '170', 13);
+INSERT INTO `t_orderdetails` VALUES ('O1530178989315', 'P0010', 'Green', '170', 21);
 
 -- ----------------------------
 -- Table structure for t_orderin
@@ -105,10 +120,15 @@ CREATE TABLE `t_orderin`  (
 -- ----------------------------
 -- Records of t_orderin
 -- ----------------------------
-INSERT INTO `t_orderin` VALUES ('10', '2018-06-25 18:50:00', 'admin', '2', '55555', NULL, 1);
-INSERT INTO `t_orderin` VALUES ('1529924133272', '2018-06-25 18:55:33', 'admin', '1', '8888888', NULL, 0);
-INSERT INTO `t_orderin` VALUES ('I1529927550649', '2018-06-25 19:52:30', 'admin', '555', '77777777', NULL, 0);
-INSERT INTO `t_orderin` VALUES ('In1529927585524', '2018-06-25 19:53:05', 'admin', '5', '666666', NULL, 0);
+INSERT INTO `t_orderin` VALUES ('10', '2018-06-25 18:50:00', 'admin', '2', '55555', NULL, 2);
+INSERT INTO `t_orderin` VALUES ('1529924133272', '2018-06-25 18:55:33', 'admin', '1', '8888888', NULL, 2);
+INSERT INTO `t_orderin` VALUES ('I1529927550649', '2018-06-25 19:52:30', 'admin', '555', '77777777', NULL, 2);
+INSERT INTO `t_orderin` VALUES ('I1530173985782', '2018-06-28 16:19:45', 'admin', '5', '1111', NULL, 2);
+INSERT INTO `t_orderin` VALUES ('I1530175150697', '2018-06-28 16:39:10', 'admin', '5', '123', NULL, 1);
+INSERT INTO `t_orderin` VALUES ('I1530175364036', '2018-06-28 16:42:44', 'admin', '1', '111', NULL, 1);
+INSERT INTO `t_orderin` VALUES ('I1530175461396', '2018-06-28 16:44:21', 'admin', '1', '111', NULL, 1);
+INSERT INTO `t_orderin` VALUES ('I1530178817922', '2018-06-28 17:40:17', 'admin', '4', '123', NULL, 0);
+INSERT INTO `t_orderin` VALUES ('In1529927585524', '2018-06-25 19:53:05', 'admin', '5', '666666', NULL, 2);
 
 -- ----------------------------
 -- Table structure for t_orderout
@@ -131,8 +151,12 @@ CREATE TABLE `t_orderout`  (
 -- Records of t_orderout
 -- ----------------------------
 INSERT INTO `t_orderout` VALUES ('1', '2018-06-25 21:48:11', '2', '2', '2', '2', NULL, NULL, 2);
-INSERT INTO `t_orderout` VALUES ('2', '2018-06-26 00:35:45', '2', '2', '2', '2', '2', '2', 0);
-INSERT INTO `t_orderout` VALUES ('3', '2018-06-26 00:38:30', 'admin', '555', '555', '555', NULL, NULL, 1);
+INSERT INTO `t_orderout` VALUES ('2', '2018-06-26 00:35:45', '2', '2', '2', '2', '2', '2', 1);
+INSERT INTO `t_orderout` VALUES ('3', '2018-06-28 14:18:31', 'admin', '1', '555', '11', NULL, NULL, 1);
+INSERT INTO `t_orderout` VALUES ('O1530175297488', '2018-06-28 16:41:37', 'admin', '2', '11', '11', NULL, NULL, 0);
+INSERT INTO `t_orderout` VALUES ('O1530175523792', '2018-06-28 16:45:23', 'admin', '2', '111', '111', NULL, NULL, 0);
+INSERT INTO `t_orderout` VALUES ('O1530175818936', '2018-06-28 16:50:18', 'admin', '1', '111', '111', NULL, NULL, 1);
+INSERT INTO `t_orderout` VALUES ('O1530178989315', '2018-06-28 17:43:09', 'admin', '1', '11', '111', NULL, NULL, 1);
 INSERT INTO `t_orderout` VALUES ('Out1529944724892', '2018-06-26 00:38:44', 'admin', '3', '333', '333', NULL, NULL, 0);
 
 -- ----------------------------
@@ -178,11 +202,11 @@ CREATE TABLE `t_warehouses`  (
 -- ----------------------------
 -- Records of t_warehouses
 -- ----------------------------
-INSERT INTO `t_warehouses` VALUES ('1', '1', '1', '1', 0, 0);
-INSERT INTO `t_warehouses` VALUES ('2', '2', '2', '2', 324, 0);
+INSERT INTO `t_warehouses` VALUES ('1', '1', '1', '1', 190, 0);
+INSERT INTO `t_warehouses` VALUES ('2', '2', '2', '2', 78, 0);
 INSERT INTO `t_warehouses` VALUES ('3', '1', '1', '1', 0, 0);
 INSERT INTO `t_warehouses` VALUES ('4', '4', '4', '4', 0, 0);
-INSERT INTO `t_warehouses` VALUES ('5', '555', '555', '555', 466, 0);
+INSERT INTO `t_warehouses` VALUES ('5', '555', '555', '555', 222, 0);
 INSERT INTO `t_warehouses` VALUES ('555', '555', '555', '555', 0, 0);
 
 -- ----------------------------
@@ -266,6 +290,32 @@ END
 delimiter ;
 
 -- ----------------------------
+-- Procedure structure for Proc_CheckWarehouseProductFuzzy
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `Proc_CheckWarehouseProductFuzzy`;
+delimiter ;;
+CREATE PROCEDURE `Proc_CheckWarehouseProductFuzzy`(IN `warehouseNo` VARCHAR(16),IN fuzzyStr VARCHAR(16),IN `pageNo` VARCHAR(6))
+BEGIN
+DECLARE beginIndex INT DEFAULT 0;
+set beginIndex := pageNo * 10;
+if (SELECT t_warehouses.WarehouseStorageCapacity FROM t_warehouses
+WHERE t_warehouses.WarehouseNo = warehouseNo) > 0
+THEN
+SELECT * FROM t_orderin
+INNER JOIN t_orderdetails ON t_orderdetails.OrderInDetailsOrderNo = t_orderin.OrderInNo
+WHERE t_orderin.OrderInWarehouse = warehouseNo
+AND (
+POSITION(fuzzyStr IN t_orderdetails.OrderInDetailsCode)
+OR POSITION(fuzzyStr IN t_orderdetails.OrderInDetailsColor)
+OR POSITION(fuzzyStr IN t_orderdetails.OrderInDetailsSize)
+OR POSITION(fuzzyStr IN t_orderdetails.OrderInDetailsCount))
+LIMIT beginIndex,10;
+END IF;
+END
+;;
+delimiter ;
+
+-- ----------------------------
 -- Procedure structure for Proc_ComfirmOrderInInfo
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `Proc_ComfirmOrderInInfo`;
@@ -277,6 +327,10 @@ set t_warehouses.WarehouseStorageCapacity
 = t_warehouses.WarehouseStorageCapacity + (SELECT SUM(OrderInDetailsCount) FROM  t_orderdetails
 	WHERE t_orderdetails.OrderInDetailsOrderNo = orderInNo)
 WHERE t_warehouses.WarehouseNo = warehouse;
+update t_clothings,t_orderdetails
+set t_clothings.ClothingCount = t_clothings.ClothingCount + t_orderdetails.OrderInDetailsCount
+WHERE t_orderdetails.OrderInDetailsCode = t_clothings.ClothingCode AND t_orderdetails.OrderInDetailsSize = t_clothings.ClothingSize AND
+t_orderdetails.OrderInDetailsColor = t_clothings.ClothingColor AND t_orderdetails.OrderInDetailsOrderNo = orderInNo;
 UPDATE t_orderin
 SET t_orderin.OrderInFlag = 1
 WHERE t_orderin.OrderInNo = orderInNo;
@@ -296,6 +350,10 @@ set t_warehouses.WarehouseStorageCapacity
 = t_warehouses.WarehouseStorageCapacity - (SELECT SUM(OrderInDetailsCount) FROM  t_orderdetails
 	WHERE t_orderdetails.OrderInDetailsOrderNo = orderOutNo)
 WHERE t_warehouses.WarehouseNo = warehouse;
+update t_clothings,t_orderdetails
+set t_clothings.ClothingCount = t_clothings.ClothingCount - t_orderdetails.OrderInDetailsCount
+WHERE t_orderdetails.OrderInDetailsCode = t_clothings.ClothingCode AND t_orderdetails.OrderInDetailsSize = t_clothings.ClothingSize AND
+t_orderdetails.OrderInDetailsColor = t_clothings.ClothingColor AND t_orderdetails.OrderInDetailsOrderNo = orderOutNo;
 UPDATE t_orderout
 SET t_orderout.OrderOutFlag = 1
 WHERE t_orderout.OrderOutNo = orderOutNo;
@@ -449,8 +507,8 @@ IF @i>0 THEN
 	t_clothings.ClothingSize = clothingSize, t_clothings.ClothingPrice = clothingPrice
 	WHERE t_clothings.ClothingCode = clothingCode;
 ELSE
-	INSERT INTO t_clothings(ClothingCode,ClothingColor,ClothingName, ClothingSize, ClothingPrice) 
-	VALUES(clothingCode, clothingColor,clothingName,clothingSize,clothingPrice);
+	INSERT INTO t_clothings(ClothingCode,ClothingColor,ClothingName, ClothingSize, ClothingPrice,ClothingCount) 
+	VALUES(clothingCode, clothingColor,clothingName,clothingSize,clothingPrice,clothingCount);
 END IF;
 END
 ;;
@@ -468,11 +526,13 @@ SELECT @i:=COUNT(*) FROM t_orderdetails
 WHERE t_orderdetails.OrderInDetailsOrderNo = orderNo AND t_orderdetails.OrderInDetailsCode = pcode AND
 t_orderdetails.OrderInDetailsSize = size AND t_orderdetails.OrderInDetailsColor = color;
 IF @i>0 THEN
-	CALL Proc_EditProductInfo(pcode, color, size, pname, price);
 	UPDATE t_orderdetails
 	SET t_orderdetails.OrderInDetailsCount = pcount
 	WHERE t_orderdetails.OrderInDetailsOrderNo = orderNo AND t_orderdetails.OrderInDetailsCode = pcode AND
 t_orderdetails.OrderInDetailsSize = size AND t_orderdetails.OrderInDetailsColor = color;
+	UPDATE t_clothings
+	SET t_clothings.ClothingCount = pcount
+	WHERE t_clothings.ClothingCode = pcode AND t_clothings.ClothingSize = size AND t_clothings.ClothingColor = color;
 ELSE
 	CALL Proc_EditProductInfo(pcode, color, size, pname, price);
 	INSERT INTO t_orderdetails(OrderInDetailsOrderNo,OrderInDetailsCode,OrderInDetailsColor,OrderInDetailsSize,OrderInDetailsCount)
@@ -488,19 +548,20 @@ delimiter ;
 DROP PROCEDURE IF EXISTS `Proc_EditProductOutOrder`;
 delimiter ;;
 CREATE PROCEDURE `Proc_EditProductOutOrder`(IN orderNo VARCHAR(16),IN pcode VARCHAR(16),IN color VARCHAR(16),
-																					IN size VARCHAR(16),IN pcount VARCHAR(16),IN pname VARCHAR(16),IN price VARCHAR(16))
+																					IN size VARCHAR(16),IN pcount VARCHAR(16))
 BEGIN
 SELECT @i:=COUNT(*) FROM t_orderdetails
 WHERE t_orderdetails.OrderInDetailsOrderNo = orderNo AND t_orderdetails.OrderInDetailsCode = pcode AND
 t_orderdetails.OrderInDetailsSize = size AND t_orderdetails.OrderInDetailsColor = color;
 IF @i>0 THEN
-	CALL Proc_EditProductInfo(pcode, color, size, pname, price);
 	UPDATE t_orderdetails
 	SET t_orderdetails.OrderInDetailsCount = pcount
 	WHERE t_orderdetails.OrderInDetailsOrderNo = orderNo AND t_orderdetails.OrderInDetailsCode = pcode AND
 t_orderdetails.OrderInDetailsSize = size AND t_orderdetails.OrderInDetailsColor = color;
+	UPDATE t_clothings
+	SET t_clothings.ClothingCount = t_clothings.ClothingCount - pcount
+	WHERE t_clothings.ClothingCode = pcode AND t_clothings.ClothingSize = size AND t_clothings.ClothingColor = color;
 ELSE
-	CALL Proc_EditProductInfo(pcode, color, size, pname, price);
 	INSERT INTO t_orderdetails(OrderInDetailsOrderNo,OrderInDetailsCode,OrderInDetailsColor,OrderInDetailsSize,OrderInDetailsCount)
 	VALUES(orderNo, pcode,color,size,pcount);
 END IF;
